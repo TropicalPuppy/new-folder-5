@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/data/objects/templates/Coin.tscn" type="PackedScene" id=1]
+
+[node name="GoldCoin" instance=ExtResource( 1 )]
+item_id = "GoldCoin"

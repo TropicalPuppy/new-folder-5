@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/objects/GameEnemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/helpers/PlayerDetectionZone.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/objects/GameEnemyGun.gd" type="Script" id=3]
+
+[node name="GameEnemyGun" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="BulletSpawnPoint" type="Position2D" parent="Data" index="2"]
+
+[node name="PlayerDetectionZone" parent="Data" index="3" instance=ExtResource( 2 )]
+
+[node name="Cooldown" type="Timer" parent="." index="4"]
+wait_time = 2.0
+one_shot = true
+
+[editable path="Data/GameHitbox"]

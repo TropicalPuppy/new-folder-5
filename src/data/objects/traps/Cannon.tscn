@@ -1,0 +1,127 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/objects/GameGun.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/enemies/Cannon.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=4]
+resource_name = "Destroy"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Fire"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 7, 8, 9, 10, 11 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "create_bullet"
+} ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "Hit"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 4, 5 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 64.0
+height = 320.0
+
+[node name="Cannon" instance=ExtResource( 1 )]
+bullet = "res://src/data/objects/bullets/CannonBall.tscn"
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 2 )
+flip_h = true
+hframes = 6
+vframes = 3
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "Idle"
+anims/Destroy = SubResource( 4 )
+anims/Fire = SubResource( 5 )
+anims/Hit = SubResource( 1 )
+anims/Idle = SubResource( 2 )
+anims/RESET = SubResource( 3 )
+
+[node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
+position = Vector2( 100, 0 )
+rotation = 4.71239
+shape = SubResource( 6 )
+
+[node name="BulletSpawnPoint" parent="." index="3"]
+position = Vector2( 10, 0 )
+
+[editable path="PlayerDetectionZone"]

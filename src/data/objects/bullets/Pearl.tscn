@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/objects/GameBullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/enemies/Pearl.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=2]
+resource_name = "Destroy"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 3.53553
+
+[node name="Pearl" instance=ExtResource( 1 )]
+collision_layer = 2
+collision_mask = 283
+destroyed_by_sword = true
+velocity = 200.0
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( -0.5, 0.5 )
+texture = ExtResource( 2 )
+hframes = 4
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "RESET"
+anims/Destroy = SubResource( 2 )
+anims/RESET = SubResource( 3 )
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource( 1 )
+
+[node name="VisibilityEnabler2D" parent="." index="3"]
+visible = false

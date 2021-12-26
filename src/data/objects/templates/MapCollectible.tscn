@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/objects/MapNode.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/data/objects/templates/MapCollectible.gd" type="Script" id=2]
+
+[node name="MapCollectible" instance=ExtResource( 1 )]
+collision_layer = 4
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+
+[connection signal="body_entered" from="." to="." method="_on_MapCollectible_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

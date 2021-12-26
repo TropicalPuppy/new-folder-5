@@ -1,0 +1,245 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://assets/backgrounds/IslandSky.png" type="Texture" id=1]
+[ext_resource path="res://assets/backgrounds/WaterReflectBig.png" type="Texture" id=2]
+[ext_resource path="res://assets/backgrounds/Island.png" type="Texture" id=3]
+[ext_resource path="res://assets/backgrounds/BigClouds.png" type="Texture" id=4]
+[ext_resource path="res://src/data/maps/IslandBackground.gd" type="Script" id=5]
+[ext_resource path="res://assets/backgrounds/SmallCloud1.png" type="Texture" id=6]
+[ext_resource path="res://assets/backgrounds/SmallCloud2.png" type="Texture" id=7]
+[ext_resource path="res://assets/backgrounds/SmallCloud3.png" type="Texture" id=8]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Reflection"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Move"
+length = 50.0
+loop = true
+step = 10.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 50 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 320, 0 ), Vector2( -80, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 205, 17 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Move"
+length = 45.0
+loop = true
+step = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 45 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 320, 24 ), Vector2( -133, 24 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 320, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "Move"
+length = 40.0
+loop = true
+step = 10.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 40 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 320, 52 ), Vector2( -140, 52 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 320, 30 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Move"
+length = 30.0
+loop = true
+step = 10.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 30 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 47 ), Vector2( -448, 47 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 47 ) ]
+}
+
+[node name="IslandBackground" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="SkyFiller" type="Sprite" parent="."]
+scale = Vector2( 10, 4 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="BackgroundImage" type="Sprite" parent="."]
+position = Vector2( 0, 62 )
+texture = ExtResource( 3 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 320, 118 )
+
+[node name="CenterReflection" type="Sprite" parent="."]
+position = Vector2( 30, 151 )
+texture = ExtResource( 2 )
+centered = false
+vframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CenterReflection"]
+autoplay = "Reflection"
+anims/RESET = SubResource( 1 )
+anims/Reflection = SubResource( 2 )
+
+[node name="SmallCloud1" type="Sprite" parent="."]
+position = Vector2( 205, 17 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SmallCloud1"]
+autoplay = "Move"
+anims/Move = SubResource( 5 )
+anims/RESET = SubResource( 6 )
+
+[node name="SmallCloud2" type="Sprite" parent="."]
+position = Vector2( 320, 0 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SmallCloud2"]
+autoplay = "Move"
+anims/Move = SubResource( 7 )
+anims/RESET = SubResource( 8 )
+
+[node name="SmallCloud3" type="Sprite" parent="."]
+position = Vector2( 320, 30 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SmallCloud3"]
+autoplay = "Move"
+anims/Move = SubResource( 9 )
+anims/RESET = SubResource( 10 )
+
+[node name="BigClouds" type="TextureRect" parent="."]
+margin_top = 47.0
+margin_right = 768.0
+margin_bottom = 148.0
+texture = ExtResource( 4 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BigClouds"]
+autoplay = "Move"
+anims/Move = SubResource( 3 )
+anims/RESET = SubResource( 4 )
