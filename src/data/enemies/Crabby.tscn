@@ -170,7 +170,6 @@ rotation = 1.5708
 shape = SubResource( 1 )
 
 [node name="GameHitbox" parent="Data" index="0"]
-collision_mask = 32
 damage = 20
 
 [node name="CollisionShape2D" parent="Data/GameHitbox" index="0"]

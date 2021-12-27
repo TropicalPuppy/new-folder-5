@@ -11,7 +11,13 @@ script = ExtResource( 3 )
 
 [node name="PlayerDetectionZone" parent="Data" index="3" instance=ExtResource( 2 )]
 
+[node name="PlayerDetectionZone2" parent="Data" index="4" instance=ExtResource( 2 )]
+
 [node name="Cooldown" type="Timer" parent="." index="4"]
+wait_time = 2.0
+one_shot = true
+
+[node name="DirectionTimer" type="Timer" parent="." index="5"]
 wait_time = 2.0
 one_shot = true
 

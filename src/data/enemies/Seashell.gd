@@ -1,60 +1,57 @@
 extends GameEnemyGun
 
-onready var large_player_detection = $Data/PlayerDetectionZone2
-onready var direction_timer = $DirectionTimer
-var is_open = false
+onready var player_detection_melee = $Data/PlayerDetectionZoneMelee
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-func face_player():
-	if !large_player_detection.can_see_player():
-		return
-	
-	var player = large_player_detection.get_player()
-	var difference = abs(player.position.x - position.x)
-	if difference > 60:
-		if player.position.x < position.x:
-			set_direction(-1)
-		else:
-			set_direction(1)
-		return
-	
-	if direction_timer.is_stopped():
-		if _direction < 0:
-			if player.position.x > bullet_spawn_point.global_position.x:
-				set_direction(1)
-				direction_timer.start()
-		else:
-			if player.position.x < bullet_spawn_point.global_position.x:
-				set_direction(-1)
-				direction_timer.start()
-	
+func is_open():
+	return !$Data/GameHurtbox/CollisionShape2D.disabled
 
 func idle_state():
-	if is_open:
-		pass
-	else:
-		if large_player_detection.can_see_player():
-			face_player()
-#		else:
-#			open()
-	
-	#If opening, skip regular idle state
-	if animation_player.is_playing() and animation_player.current_animation == "Open":
+	if face_player_automatically and player_detection2.can_see_player() and !is_open():
+		face_player()
+
+	pick_something_to_do()
+
+func pick_something_to_do():
+	if !cooldown.is_stopped():
+		return
+		
+	if is_open():
+		maybe_attack()
 		return
 	
-	.idle_state()
+	if player_detection.can_see_player():
+		fire()
+		return
+
+	open()
 
 func open():
-	print("open")
-	is_open = true
+	if player_detection_melee.can_see_player():
+		return
+
 	animation_player.play("Open")
+	cooldown.start(0.5)
+
+func maybe_attack():
+	if !player_detection_melee.can_see_player():
+		return
+
+	animation_player.play("Attack")
+	cooldown.start(2)
+
+func update_animation():
+	if animation_player.is_playing():
+		var anim_name = animation_player.current_animation
+		if (anim_name == "Attack" or anim_name == "Open") and _state != State.HIT:
+			return
+	
+	.update_animation()
 
 func get_new_animation():
-	var animation = .get_new_animation()
-	if animation == "Idle" and is_open:
+	if _state == State.HIT:
+		return "Hit"
+		
+	if is_open():
 		return "IdleOpen"
-	
-	return animation
+
+	return "Idle"
