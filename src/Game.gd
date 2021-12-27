@@ -11,6 +11,7 @@ signal stuck_sword
 signal recall_sword
 signal update_player_position
 signal update_map
+signal create_debris
 
 const lose_sword_when_throwing = false
 
@@ -106,3 +107,6 @@ func recall_sword():
 
 func take_damage(damage):
 	set_life(current_life - damage)
+
+func create_debris(debris, position, direction):
+	emit_signal("create_debris", debris, position, direction)

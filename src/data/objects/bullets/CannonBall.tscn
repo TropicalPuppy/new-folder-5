@@ -13,10 +13,12 @@ destroyed_by_sword = true
 velocity = 200.0
 damage = 35
 explosion_effect = "res://src/data/sprites/ExplosionEffect.tscn"
+debris_left = "res://src/data/sprites/debris/cannon_ball/CannonBallLeft.tscn"
+debris_center = "res://src/data/sprites/debris/cannon_ball/CannonBallCenter.tscn"
+debris_right = "res://src/data/sprites/debris/cannon_ball/CannonBallRight.tscn"
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
-hframes = 4
 
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2( -0.5, 0.5 )

@@ -260,6 +260,7 @@ debug={
 2d_physics/layer_8="InvinciblePlatforms"
 2d_physics/layer_9="PlayerAttacks"
 2d_physics/layer_10="Barriers"
+2d_physics/layer_11="Debris"
 
 [physics]
 

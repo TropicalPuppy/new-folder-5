@@ -79,54 +79,47 @@ z_index = -1
 
 [node name="PalmTreeLeft" parent="BackgroundTrees" index="0" instance=ExtResource( 20 )]
 position = Vector2( 254, 227 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="PalmTreeLeft2" parent="BackgroundTrees" index="1" instance=ExtResource( 20 )]
 position = Vector2( 1015, 650 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="PalmTreeLeft3" parent="BackgroundTrees" index="2" instance=ExtResource( 20 )]
 position = Vector2( 528, 293 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="PalmTreeCenter" parent="BackgroundTrees" index="3" instance=ExtResource( 21 )]
 position = Vector2( 147, 193 )
-frame = 2
 
 [node name="PalmTreeCenter2" parent="BackgroundTrees" index="4" instance=ExtResource( 21 )]
 position = Vector2( 715, 193 )
-frame = 2
 
 [node name="PalmTreeCenter3" parent="BackgroundTrees" index="5" instance=ExtResource( 21 )]
 position = Vector2( 1118, 650 )
-frame = 2
 
 [node name="PalmTreeCenter4" parent="BackgroundTrees" index="6" instance=ExtResource( 21 )]
 position = Vector2( 494, 643 )
-frame = 2
 
 [node name="PalmTreeCenter5" parent="BackgroundTrees" index="7" instance=ExtResource( 21 )]
 position = Vector2( 882, 610 )
-frame = 2
 
 [node name="PalmTreeCenter6" parent="BackgroundTrees" index="8" instance=ExtResource( 21 )]
 position = Vector2( 119, 641 )
-frame = 2
 
 [node name="PalmTreeCenter7" parent="BackgroundTrees" index="9" instance=ExtResource( 21 )]
 position = Vector2( 537, 648 )
-frame = 2
 
 [node name="PalmTreeRight" parent="BackgroundTrees" index="10" instance=ExtResource( 22 )]
 position = Vector2( 660, 326 )
-frame = 2
+frame = 1
 
 [node name="PalmTreeRight2" parent="BackgroundTrees" index="11" instance=ExtResource( 22 )]
 position = Vector2( 1203, 553 )
-frame = 2
+frame = 1
 
 [node name="TileMap" type="TileMap" parent="." index="2"]
 tile_set = ExtResource( 2 )

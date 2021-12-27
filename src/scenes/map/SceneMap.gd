@@ -25,6 +25,8 @@ func _ready() -> void:
 	Game.connect("stuck_sword", self, "create_stuck_sword")
 	# warning-ignore:return_value_discarded
 	Game.connect("update_map", self, "update_map")
+	# warning-ignore:return_value_discarded
+	Game.connect("create_debris", self, "create_debris")
 	
 func load_initial_player() -> void:
 	if y_sort.get_child_count() == 0:
@@ -119,3 +121,8 @@ func create_jump_effect(position, direction):
 
 func create_fall_effect(position, direction):
 	add_player_effect(FallEffectScene.instance(), position, direction)
+
+func create_debris(debris, position, direction):
+	debris.global_position = position
+	debris.apply_impulse(Vector2.ZERO, direction)
+	add_child(debris)
