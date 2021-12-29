@@ -191,8 +191,7 @@ func check_attack_input():
 			animation_player.play("AirSlash")
 			air_slash_disabled = true
 			state = State.ATTACK
-			if _velocity.y > 0:
-				_velocity.y = 0
+			_velocity.y = 0
 		
 		return
 	
@@ -204,8 +203,9 @@ func check_attack_input():
 	if Input.is_action_just_pressed("throw"):
 		state = State.ATTACK
 		animation_player.play("Throw")
-		if _velocity.y > 0 and !is_on_floor():
+		if !is_on_floor():
 			_velocity.y = 0
+		
 		return
 
 func can_jump_now():
