@@ -155,6 +155,7 @@ func attack_state(_delta: float) -> void:
 		state = State.MOVE
 		return
 		
+	apply_velocity(Vector2.ZERO, true)
 	var old_anim = animation_player.current_animation
 		
 	if old_anim == "Throw":
