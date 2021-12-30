@@ -9,6 +9,7 @@ onready var interactionRay = $Data/InteractionRayCast
 onready var platform_detector = $Data/PlatformDetector
 onready var hurtbox = $Data/GameHurtbox
 onready var sword_thrower = $Data/SwordThrower
+onready var throw_cooldown = $ThrowCooldown
 
 const swordLess = preload("res://assets/player/Captain.png")
 const swordFull = preload("res://assets/player/CaptainSword.png")
@@ -100,7 +101,7 @@ func update_sprite():
 	if !Game.has_sword and Input.is_action_pressed("debug") and Input.is_action_just_pressed("slash"):
 		Game.has_sword = true
 
-	var should_show_sword = Game.has_sword and !Game.lost_sword
+	var should_show_sword = Game.has_sword and !Game.lost_sword and throw_cooldown.is_stopped()
 	if show_sword != should_show_sword:
 		set_show_sword(should_show_sword)
 
@@ -202,6 +203,9 @@ func check_attack_input():
 		return
 	
 	if Input.is_action_just_pressed("throw"):
+		if !throw_cooldown.is_stopped():
+			return
+
 		state = State.ATTACK
 		animation_player.play("Throw")
 		if !is_on_floor():
@@ -347,6 +351,7 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 func throw_sword():
 	sword_thrower.throw(data.scale.x)
 	Game.lose_sword()
+	throw_cooldown.start()
 
 func run():
 	emit_signal("run", position, data.scale.x)

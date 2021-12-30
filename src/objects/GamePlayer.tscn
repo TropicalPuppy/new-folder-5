@@ -908,6 +908,8 @@ stream = ExtResource( 14 )
 bus = "Player"
 
 [node name="ThrowCooldown" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
