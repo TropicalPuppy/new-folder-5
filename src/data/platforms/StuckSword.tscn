@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/objects/GamePlatform.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/player/Sword.png" type="Texture" id=2]
 [ext_resource path="res://src/data/platforms/StuckSword.gd" type="Script" id=3]
+[ext_resource path="res://assets/sfx/arrow-hit.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7, 2.5 )
@@ -21,6 +22,20 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 12, 13, 14, 12, 13, 14, 15 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("../AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 4 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=3]
@@ -78,5 +93,8 @@ anims/Spin = SubResource( 4 )
 wait_time = 4.0
 one_shot = true
 autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="3"]
+stream = ExtResource( 4 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

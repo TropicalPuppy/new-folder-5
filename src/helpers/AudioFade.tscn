@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/helpers/AudioFade.gd" type="Script" id=2]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+autoplay = true
+script = ExtResource( 2 )
+
+[node name="TweenIn" type="Tween" parent="."]
+
+[node name="TweenOut" type="Tween" parent="."]

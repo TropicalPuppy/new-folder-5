@@ -240,7 +240,7 @@ func get_new_animation():
 		return 'Hit'
 
 	if !is_on_floor():
-		if _velocity.y > 0:
+		if _velocity.y >= 0:
 			return "Fall"
 
 		return "Jump"
@@ -308,8 +308,10 @@ func get_hit(direction = 0):
 	
 	animation_player.play("Hit")
 
-func _on_AnimationPlayer_animation_started(_anim_name: String) -> void:
-	pass
+func _on_AnimationPlayer_animation_started(anim_name: String) -> void:
+	if anim_name == "Jump":
+		$JumpAudioStreamPlayer.play()
+		pass
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if (anim_name == "Hit"):

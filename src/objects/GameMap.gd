@@ -1,22 +1,14 @@
 extends StaticBody2D
 class_name GameMap
 
-export(int) var width = 640
-export(int) var height = 360
+func get_top():
+	return $TopLeftLimit.position.y
 
-var map_id = 'unknown'
+func get_left():
+	return $TopLeftLimit.position.x
 
-func set_nothing(_value):
-	pass
+func get_bottom():
+	return $BottomRightLimit.position.y
 
-func _ready() -> void:
-	pass
-
-func _physics_process(_delta: float) -> void:
-	pass
-
-func setup(new_map_id):
-	map_id = new_map_id
-
-func clear_map():
-	queue_free()
+func get_right():
+	return $BottomRightLimit.position.x

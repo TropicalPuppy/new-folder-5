@@ -4,6 +4,7 @@ class_name SceneMap
 onready var y_sort = $YSort
 onready var map_holder = $MapHolder
 onready var camera = $Camera2D
+onready var audio = $AudioStreamPlayer2D
 
 const StuckSwordScene = preload("res://src/data/platforms/StuckSword.tscn")
 const RunEffectScene = preload("res://src/data/sprites/RunEffect.tscn")
@@ -27,6 +28,8 @@ func _ready() -> void:
 	Game.connect("update_map", self, "update_map")
 	# warning-ignore:return_value_discarded
 	Game.connect("create_debris", self, "create_debris")
+	# warning-ignore:return_value_discarded
+	Game.connect("play_sfx_at", self, "play_sfx_at")
 	
 func load_initial_player() -> void:
 	if y_sort.get_child_count() == 0:
@@ -65,12 +68,14 @@ func load_map(map_name) -> void:
 	while map_holder.get_child_count() > 0:
 		var old_map = map_holder.get_child(0)
 		map_holder.remove_child(old_map)
-		old_map.clear_map()
+		old_map.queue_free()
 	
 	map_holder.add_child(map_instance)
 	
-	camera.limit_right = map_instance.width
-	camera.limit_bottom = map_instance.height	
+	camera.limit_left = map_instance.get_left()
+	camera.limit_top = map_instance.get_top()
+	camera.limit_right = map_instance.get_right()
+	camera.limit_bottom = map_instance.get_bottom()
 
 func initialize():
 	if initialized:
@@ -126,3 +131,8 @@ func create_debris(debris, position, direction):
 	debris.global_position = position
 	debris.apply_impulse(Vector2.ZERO, direction)
 	add_child(debris)
+
+func play_sfx_at(sfx, position):
+	audio.position = position
+	audio.stream = sfx
+	audio.play()

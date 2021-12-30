@@ -13,12 +13,16 @@ export(String, FILE, "*.tscn,*.scn") var explosion_effect
 export(String, FILE, "*.tscn,*.scn") var debris_left
 export(String, FILE, "*.tscn,*.scn") var debris_center
 export(String, FILE, "*.tscn,*.scn") var debris_right
+export(String, FILE, "*.wav") var hit_player_sfx
+export(String, FILE, "*.wav") var hit_wall_sfx
 
 #onready var animation_player = $AnimationPlayer
 var ExplosionScene = null
 var DebrisLeft = null
 var DebrisCenter = null
 var DebrisRight = null
+var HitPlayerSFX = null
+var HitWallSFX = null
 var shooter = null
 var created_debris = false
 
@@ -31,6 +35,14 @@ func _ready():
 		DebrisCenter = load(debris_center)
 	if debris_right != '':
 		DebrisRight = load(debris_right)
+	
+	if hit_player_sfx != '':
+		HitPlayerSFX = load(hit_player_sfx)
+	if hit_wall_sfx != '':
+		if hit_wall_sfx == hit_player_sfx:
+			HitWallSFX = HitPlayerSFX
+		else:
+			HitWallSFX = load(hit_wall_sfx)
 
 func set_shooter(value):
 	shooter = value
@@ -93,6 +105,9 @@ func _physics_process(delta):
 	var hit_direction = 1 if collision.position > collision.collider.global_position else -1
 
 	if collision.collider is GamePlayer:
+		if hit_player_sfx != '':
+			Game.play_sfx_at(HitPlayerSFX, collision.position)
+
 		if !collision.collider.is_invincible():
 			collision.collider.get_hit(hit_direction)
 			Game.take_damage(damage)
@@ -105,6 +120,9 @@ func _physics_process(delta):
 		return
 		
 	if collision.collider is StaticBody2D:
+		if hit_wall_sfx != '':
+			Game.play_sfx_at(HitWallSFX, collision.position)
+
 		print("hit the scenario")
 		return
 		

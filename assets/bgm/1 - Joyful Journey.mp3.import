@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/1 - Joyful Journey.mp3-8c7863b5a6390003b5230b2b43e4a64b.mp3str"
+
+[deps]
+
+source_file="res://assets/bgm/1 - Joyful Journey.mp3"
+dest_files=[ "res://.import/1 - Joyful Journey.mp3-8c7863b5a6390003b5230b2b43e4a64b.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

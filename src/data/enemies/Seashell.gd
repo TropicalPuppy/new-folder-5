@@ -7,7 +7,8 @@ func is_open():
 
 func idle_state():
 	if face_player_automatically and player_detection2.can_see_player() and !is_open():
-		face_player()
+		if !animation_player.is_playing() or animation_player.current_animation != "Fire":
+			face_player()
 
 	pick_something_to_do()
 

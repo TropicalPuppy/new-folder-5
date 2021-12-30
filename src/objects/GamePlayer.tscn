@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://src/objects/GamePlayer.gd" type="Script" id=1]
 [ext_resource path="res://assets/player/CaptainSword.png" type="Texture" id=2]
@@ -10,6 +10,10 @@
 [ext_resource path="res://assets/player/Slash.png" type="Texture" id=8]
 [ext_resource path="res://src/objects/SwordThrower.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/objects/GameHitbox.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/sfx/swish3.wav" type="AudioStream" id=11]
+[ext_resource path="res://assets/sfx/swish2.wav" type="AudioStream" id=12]
+[ext_resource path="res://assets/sfx/swish.wav" type="AudioStream" id=13]
+[ext_resource path="res://assets/sfx/jump.wav" type="AudioStream" id=14]
 
 [sub_resource type="RectangleShape2D" id=25]
 extents = Vector2( 7, 12 )
@@ -66,6 +70,20 @@ tracks/3/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/4/type = "audio"
+tracks/4/path = NodePath("AudioStreamPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 13 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
 [sub_resource type="Animation" id=55]
 resource_name = "AirSlash2"
@@ -118,6 +136,20 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
+}
+tracks/4/type = "audio"
+tracks/4/path = NodePath("AudioStreamPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 12 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=47]
@@ -290,7 +322,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=9]
 resource_name = "Jump"
-length = 0.45
+length = 0.5
 loop = true
 step = 0.15
 tracks/0/type = "value"
@@ -457,6 +489,20 @@ tracks/3/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/4/type = "audio"
+tracks/4/path = NodePath("AudioStreamPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 13 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
 [sub_resource type="Animation" id=57]
 resource_name = "Slash2"
@@ -509,6 +555,20 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
+}
+tracks/4/type = "audio"
+tracks/4/path = NodePath("AudioStreamPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 12 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=58]
@@ -593,6 +653,20 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
+}
+tracks/4/type = "audio"
+tracks/4/path = NodePath("AudioStreamPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 11 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=7]
@@ -712,7 +786,7 @@ speed = Vector2( 120, 250 )
 texture = ExtResource( 2 )
 hframes = 6
 vframes = 8
-frame = 34
+frame = 12
 
 [node name="Attacks" type="Node2D" parent="SpriteHolder/Sprite"]
 
@@ -721,28 +795,24 @@ visible = false
 position = Vector2( 32, 2.5 )
 texture = ExtResource( 5 )
 hframes = 3
-frame = 2
 
 [node name="Slash" type="Sprite" parent="SpriteHolder/Sprite/Attacks"]
 visible = false
 position = Vector2( 32, -1.5 )
 texture = ExtResource( 8 )
 hframes = 3
-frame = 2
 
 [node name="Slash2" type="Sprite" parent="SpriteHolder/Sprite/Attacks"]
 visible = false
 position = Vector2( 30, -5 )
 texture = ExtResource( 6 )
 hframes = 3
-frame = 2
 
 [node name="AirSlash" type="Sprite" parent="SpriteHolder/Sprite/Attacks"]
 visible = false
 position = Vector2( 15, 21 )
 texture = ExtResource( 7 )
 hframes = 2
-frame = 1
 
 [node name="AirSlash2" type="Sprite" parent="SpriteHolder/Sprite/Attacks"]
 visible = false
@@ -828,6 +898,16 @@ position = Vector2( 21, 5 )
 rotation = 1.5708
 shape = SubResource( 62 )
 disabled = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+bus = "Player"
+
+[node name="JumpAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+bus = "Player"
+
+[node name="ThrowCooldown" type="Timer" parent="."]
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]

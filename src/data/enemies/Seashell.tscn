@@ -1,9 +1,11 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://src/objects/GameEnemyGun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/enemies/Seashell.png" type="Texture" id=2]
 [ext_resource path="res://src/data/enemies/Seashell.gd" type="Script" id=3]
 [ext_resource path="res://src/helpers/PlayerDetectionZone.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/sfx/plop.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/sfx/crack.wav" type="AudioStream" id=6]
 
 [sub_resource type="Animation" id=2]
 resource_name = "Attack"
@@ -130,6 +132,20 @@ tracks/2/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/3/type = "audio"
+tracks/3/path = NodePath("AudioStreamPlayer2D")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 5 )
+} ],
+"times": PoolRealArray( 0.3 )
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "Hit"
@@ -169,6 +185,20 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("AudioStreamPlayer2D")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 6 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=6]
@@ -439,7 +469,7 @@ shape = SubResource( 15 )
 disabled = true
 
 [node name="BulletSpawnPoint" parent="Data" index="2"]
-position = Vector2( 22, 9.5 )
+position = Vector2( 14, 9.5 )
 
 [node name="CollisionShape2D" parent="Data/PlayerDetectionZone" index="0"]
 position = Vector2( 100, 0 )

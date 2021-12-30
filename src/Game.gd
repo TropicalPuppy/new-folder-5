@@ -12,6 +12,7 @@ signal recall_sword
 signal update_player_position
 signal update_map
 signal create_debris
+signal play_sfx_at
 
 const lose_sword_when_throwing = false
 
@@ -110,3 +111,6 @@ func take_damage(damage):
 
 func create_debris(debris, position, direction):
 	emit_signal("create_debris", debris, position, direction)
+
+func play_sfx_at(sfx, position):
+	emit_signal("play_sfx_at", sfx, position)

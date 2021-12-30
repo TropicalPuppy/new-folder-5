@@ -44,6 +44,8 @@ destroyed_by_sword = true
 velocity = 200.0
 debris_left = "res://src/data/sprites/debris/pearl/PearlLeft.tscn"
 debris_right = "res://src/data/sprites/debris/pearl/PearlRight.tscn"
+hit_player_sfx = "res://assets/sfx/slap.wav"
+hit_wall_sfx = "res://assets/sfx/slap.wav"
 
 [node name="Sprite" parent="." index="0"]
 position = Vector2( -0.5, 0.5 )
