@@ -6,6 +6,7 @@
 
 [node name="GameEnemyGun" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+enable_gravity = false
 
 [node name="BulletSpawnPoint" type="Position2D" parent="Data" index="2"]
 

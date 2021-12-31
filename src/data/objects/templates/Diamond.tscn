@@ -83,6 +83,7 @@ tracks/0/keys = {
 
 [node name="Diamond" instance=ExtResource( 1 )]
 call_destroy_animation = true
+collect_sfx = "res://assets/sfx/collect.wav"
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )

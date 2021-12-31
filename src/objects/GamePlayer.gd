@@ -10,6 +10,9 @@ onready var platform_detector = $Data/PlatformDetector
 onready var hurtbox = $Data/GameHurtbox
 onready var sword_thrower = $Data/SwordThrower
 onready var throw_cooldown = $ThrowCooldown
+onready var back_detector = $Data/BackDetector
+onready var front_detector = $Data/FrontDetector
+
 
 const swordLess = preload("res://assets/player/Captain.png")
 const swordFull = preload("res://assets/player/CaptainSword.png")
@@ -175,8 +178,8 @@ func attack_state(_delta: float) -> void:
 
 func check_attack_input():
 	if !show_sword:
-		if Game.has_sword and (Input.is_action_just_pressed("slash") or Input.is_action_just_pressed("thrust") or Input.is_action_just_pressed("throw")):
-			Game.recall_sword()
+#		if Game.has_sword and (Input.is_action_just_pressed("slash") or Input.is_action_just_pressed("thrust") or Input.is_action_just_pressed("throw")):
+#			Game.recall_sword()
 			
 		return
 		
@@ -349,7 +352,18 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 		state = State.MOVE
 	
 func throw_sword():
-	sword_thrower.throw(data.scale.x)
+	back_detector.force_raycast_update()
+	front_detector.force_raycast_update()
+
+	var direction = data.scale.x
+	var x_offset = 0
+
+	if back_detector.is_colliding():
+		x_offset = 6 * direction
+	elif front_detector.is_colliding():
+		x_offset = -6 * direction
+
+	sword_thrower.throw(direction, x_offset)
 	Game.lose_sword()
 	throw_cooldown.start()
 

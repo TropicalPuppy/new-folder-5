@@ -29,11 +29,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/objects/GameEnemyGun.gd"
 }, {
-"base": "Node2D",
-"class": "GameGun",
-"language": "GDScript",
-"path": "res://src/objects/GameGun.gd"
-}, {
 "base": "Area2D",
 "class": "GameHitbox",
 "language": "GDScript",
@@ -119,7 +114,6 @@ _global_script_class_icons={
 "GameCharacter": "",
 "GameEnemy": "",
 "GameEnemyGun": "",
-"GameGun": "",
 "GameHitbox": "",
 "GameHurtbox": "",
 "GameMap": "",

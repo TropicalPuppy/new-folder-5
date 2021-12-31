@@ -216,7 +216,7 @@ resource_name = "Jump"
 length = 0.1
 
 [sub_resource type="CapsuleShape2D" id=11]
-radius = 32.0
+radius = 64.0
 height = 320.0
 
 [sub_resource type="RectangleShape2D" id=12]

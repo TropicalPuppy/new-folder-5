@@ -24,8 +24,5 @@ tracks/0/keys = {
 [node name="RedDiamond" instance=ExtResource( 1 )]
 item_id = "RedDiamond"
 
-[node name="Sprite" parent="." index="0"]
-frame = 12
-
 [node name="AnimationPlayer" parent="." index="2"]
 anims/Idle = SubResource( 1 )

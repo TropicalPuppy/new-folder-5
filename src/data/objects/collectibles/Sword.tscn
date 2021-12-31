@@ -27,7 +27,7 @@ tracks/0/keys = {
 
 [node name="Sword" instance=ExtResource( 1 )]
 item_id = "Sword"
-collect_sfx = "res://assets/sfx/collect.wav"
+collect_sfx = "res://assets/sfx/success.wav"
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )

@@ -8,6 +8,7 @@ onready var direction_timer = $DirectionTimer
 onready var cooldown = $Cooldown
 
 export(String, FILE, "*.tscn,*.scn") var bullet
+export(String, FILE, "*.wav") var fire_sfx
 export(bool) var face_player_automatically = false
 export(float) var min_distance_for_quick_turning = 60
 
@@ -15,9 +16,15 @@ onready var BulletScene = load(bullet)
 
 signal create_bullet
 
+var FireSFX = null
+
 #func set_direction(direction):
 #	.set_direction(direction)
 #	pass
+
+func _ready():
+	if fire_sfx != '':
+		FireSFX = load(fire_sfx)
 
 func set_collision_enabled(enabled):
 	$CollisionShape2D.disabled = !enabled
@@ -51,6 +58,9 @@ func create_bullet():
 	spawn.set_as_toplevel(true)
 	emit_signal("create_bullet", spawn)
 	add_child(spawn)
+	
+	if fire_sfx != '':
+		Game.play_sfx_at(FireSFX, bullet_spawn_point.global_position)
 	return true
 
 func face_player():

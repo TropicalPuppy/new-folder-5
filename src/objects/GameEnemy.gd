@@ -3,6 +3,7 @@ class_name GameEnemy
 
 onready var sprite = $Sprite
 onready var animation_player = $AnimationPlayer
+onready var collision_shape = $CollisionShape2D
 
 enum State {
 	IDLE,
@@ -11,24 +12,29 @@ enum State {
 }
 
 enum Direction {
-	LEFT,
+	LEFT,set
 	RIGHT
 }
 
 export(int) var life = 20
 export(bool) var manage_enemy_layer = true
 export(Direction) var initial_direction = Direction.LEFT
+export(float) var x_offset_when_facing_left = 0
+export(float) var x_offset_when_facing_right = 0
 
 var _state = State.IDLE
 var _direction = -1
 var current_knockback = Vector2.ZERO
 var knockback_direction = -1
+var original_collision_x = 0
 
 func _ready() -> void:
 	$Data/GameHurtbox.set_enemy(self)
 	_velocity.x = speed.x
 	if initial_direction == Direction.RIGHT:
 		_direction = 1
+	
+	original_collision_x = collision_shape.position.x
 
 func set_direction(direction):
 	_direction = direction
@@ -42,6 +48,9 @@ func invert_direction():
 func flip_sprite_based_on_direction():
 	sprite.scale.x = _direction
 	$Data.scale.x = _direction
+	if x_offset_when_facing_left != x_offset_when_facing_right:
+		var offset = x_offset_when_facing_left if _direction < 0 else x_offset_when_facing_right
+		collision_shape.position.x = original_collision_x + offset
 
 func update_animation():
 	var animation = get_new_animation()

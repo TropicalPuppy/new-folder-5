@@ -13,6 +13,7 @@ signal update_player_position
 signal update_map
 signal create_debris
 signal play_sfx_at
+signal money_changed
 
 const lose_sword_when_throwing = false
 
@@ -28,7 +29,7 @@ var current_scene_name setget set_nothing
 var max_life = 100 setget set_max_life
 var current_life = 100 setget set_life
 var can_double_jump = false
-var gold = 0
+var money = 0
 var jump_exp = 0
 var run_exp = 0
 var has_sword = false
@@ -44,6 +45,10 @@ func set_max_life(value):
 func set_life(value):
 	current_life = clamp(value, 0, max_life)
 	emit_signal("life_changed", value)
+
+func increase_money(increase):
+	money = money + increase
+	emit_signal("money_changed", money)
 
 func _ready() -> void:
 	pass
@@ -93,6 +98,19 @@ func collect_item(item_id):
 	match item_id:
 		'Sword':
 			has_sword = true
+		'GoldenSkull':
+			set_max_life(max_life + 20)
+			set_life(max_life)
+		'SilverCoin':
+			increase_money(1)
+		'GoldCoin':
+			increase_money(5)
+		'GreenDiamond':
+			increase_money(20)
+		'RedDiamond':
+			increase_money(50)
+		'BlueDiamond':
+			increase_money(100)
 
 func create_stuck_sword(position, direction, quick_destroy = false):
 	emit_signal("stuck_sword", position, direction, quick_destroy)
