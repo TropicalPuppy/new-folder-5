@@ -8,14 +8,11 @@ onready var maps = MapManager.new()
 signal life_changed
 signal max_life_changed
 signal stuck_sword
-signal recall_sword
 signal update_player_position
 signal update_map
 signal create_debris
 signal play_sfx_at
 signal money_changed
-
-const lose_sword_when_throwing = false
 
 var player_scene = null setget set_player_scene
 #var player = null setget set_player
@@ -33,7 +30,6 @@ var money = 0
 var jump_exp = 0
 var run_exp = 0
 var has_sword = false
-var lost_sword = false
 
 func set_max_life(value):
 	max_life = max(1, value)
@@ -114,15 +110,9 @@ func collect_item(item_id):
 
 func create_stuck_sword(position, direction, quick_destroy = false):
 	emit_signal("stuck_sword", position, direction, quick_destroy)
-	lose_sword()
 
 func lose_sword():
-	if lose_sword_when_throwing:
-		lost_sword = true
-
-func recall_sword():
-	lost_sword = false
-	emit_signal("recall_sword")
+	pass
 
 func take_damage(damage):
 	set_life(current_life - damage)

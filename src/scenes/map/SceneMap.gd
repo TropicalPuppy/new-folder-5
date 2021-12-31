@@ -21,8 +21,6 @@ func _ready() -> void:
 		initialize()
 	
 	# warning-ignore:return_value_discarded
-	Game.connect("recall_sword", self, "destroy_all_swords")
-	# warning-ignore:return_value_discarded
 	Game.connect("stuck_sword", self, "create_stuck_sword")
 	# warning-ignore:return_value_discarded
 	Game.connect("update_map", self, "update_map")

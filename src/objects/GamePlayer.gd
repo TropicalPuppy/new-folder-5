@@ -104,7 +104,7 @@ func update_sprite():
 	if !Game.has_sword and Input.is_action_pressed("debug") and Input.is_action_just_pressed("slash"):
 		Game.has_sword = true
 
-	var should_show_sword = Game.has_sword and !Game.lost_sword and throw_cooldown.is_stopped()
+	var should_show_sword = Game.has_sword and throw_cooldown.is_stopped()
 	if show_sword != should_show_sword:
 		set_show_sword(should_show_sword)
 
@@ -178,9 +178,6 @@ func attack_state(_delta: float) -> void:
 
 func check_attack_input():
 	if !show_sword:
-#		if Game.has_sword and (Input.is_action_just_pressed("slash") or Input.is_action_just_pressed("thrust") or Input.is_action_just_pressed("throw")):
-#			Game.recall_sword()
-			
 		return
 		
 	if air_slash_disabled and is_on_floor():

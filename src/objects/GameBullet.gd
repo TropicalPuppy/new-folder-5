@@ -111,7 +111,6 @@ func _physics_process(delta):
 		if destroyed_by_sword:
 			explode()
 			collision.collider.destroy()
-			Game.recall_sword()
 		return
 	
 	explode()

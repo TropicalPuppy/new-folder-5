@@ -38,7 +38,6 @@ func _physics_process(delta):
 			destroy()
 		return
 
-	Game.recall_sword()
 	destroy()
 
 	if collision.collider is GameEnemy:
@@ -57,5 +56,4 @@ func _physics_process(delta):
 	
 
 func _on_Timer_timeout():
-	Game.recall_sword()
 	destroy()
