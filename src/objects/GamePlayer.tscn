@@ -801,7 +801,7 @@ speed = Vector2( 120, 250 )
 texture = ExtResource( 2 )
 hframes = 6
 vframes = 8
-frame = 18
+frame = 22
 
 [node name="Attacks" type="Node2D" parent="SpriteHolder/Sprite"]
 
@@ -930,6 +930,7 @@ one_shot = true
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
 [connection signal="area_entered" from="Data/GameHurtbox" to="." method="_on_GameHurtbox_area_entered"]
+[connection signal="body_entered" from="Data/GameHurtbox" to="." method="_on_GameHurtbox_body_entered"]
 [connection signal="invincibility_ended" from="Data/GameHurtbox" to="." method="_on_GameHurtbox_invincibility_ended"]
 [connection signal="invincibility_started" from="Data/GameHurtbox" to="." method="_on_GameHurtbox_invincibility_started"]
 

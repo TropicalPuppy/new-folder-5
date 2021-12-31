@@ -425,7 +425,7 @@ radius = 28.0
 [node name="Seashell" instance=ExtResource( 1 )]
 collision_layer = 514
 script = ExtResource( 3 )
-speed = Vector2( 0, 350 )
+speed = Vector2( 0, 0 )
 life = 80
 bullet = "res://src/data/objects/bullets/Pearl.tscn"
 face_player_automatically = true

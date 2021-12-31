@@ -10,7 +10,14 @@ enum State {
 	DEAD,
 }
 
+enum Direction {
+	LEFT,
+	RIGHT
+}
+
 export(int) var life = 20
+export(bool) var manage_enemy_layer = true
+export(Direction) var initial_direction = Direction.LEFT
 
 var _state = State.IDLE
 var _direction = -1
@@ -20,6 +27,8 @@ var knockback_direction = -1
 func _ready() -> void:
 	$Data/GameHurtbox.set_enemy(self)
 	_velocity.x = speed.x
+	if initial_direction == Direction.RIGHT:
+		_direction = 1
 
 func set_direction(direction):
 	_direction = direction
@@ -54,7 +63,8 @@ func _physics_process(_delta):
 		dead_state()
 		return
 
-	set_collision_layer_bit(1, _state == State.IDLE)
+	if manage_enemy_layer:
+		set_collision_layer_bit(1, _state == State.IDLE)
 
 	match _state:
 		State.HIT:

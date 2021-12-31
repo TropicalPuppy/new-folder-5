@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/data/enemies/TotemHeadTemplate.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/enemies/TotemHead2.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 9 )
+
+[node name="TotemHead2" instance=ExtResource( 1 )]
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2( 0, 7 )
+shape = SubResource( 1 )
+one_way_collision = true
+
+[node name="BulletSpawnPoint" parent="Data" index="2"]
+position = Vector2( 13, 10 )
+
+[node name="CollisionShape2D" parent="Data/PlayerDetectionAbove" index="0"]
+position = Vector2( 0, -17 )
+
+[node name="Cooldown" parent="." index="4"]
+wait_time = 0.5
+
+[editable path="Data/GameHitbox"]
+[editable path="Data/PlayerDetectionZone"]
+[editable path="Data/PlayerDetectionZone2"]
+[editable path="Data/PlayerDetectionAbove"]

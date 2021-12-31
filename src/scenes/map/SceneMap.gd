@@ -39,7 +39,8 @@ func load_initial_player() -> void:
 	if Game.player_x != null and Game.player_y != null:
 		game_player.position.x = Game.player_x
 		game_player.position.y = Game.player_y
-	
+	game_player.set_camera_path("../../../Camera2D")
+
 	# warning-ignore:return_value_discarded
 	game_player.connect("run", self, "create_run_effect")
 	# warning-ignore:return_value_discarded
@@ -130,7 +131,8 @@ func create_fall_effect(position, direction):
 func create_debris(debris, position, direction):
 	debris.global_position = position
 	debris.apply_impulse(Vector2.ZERO, direction)
-	add_child(debris)
+	call_deferred("add_child", debris)
+#	add_child(debris)
 
 func play_sfx_at(sfx, position):
 	audio.position = position

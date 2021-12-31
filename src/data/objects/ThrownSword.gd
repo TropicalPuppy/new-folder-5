@@ -33,8 +33,9 @@ func _physics_process(delta):
 		return
 	
 	if collision.collider is GameEnemy and collision.collider.is_invincible():
-		Game.create_stuck_sword(collision.position, direction, true)
-		destroy()
+		if collision.collider.get_collision_layer_bit(1):
+			Game.create_stuck_sword(collision.position, direction, true)
+			destroy()
 		return
 
 	Game.recall_sword()

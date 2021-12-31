@@ -13,9 +13,11 @@ export(float) var min_distance_for_quick_turning = 60
 
 onready var BulletScene = load(bullet)
 
-func set_direction(direction):
-	.set_direction(direction)
-	pass
+signal create_bullet
+
+#func set_direction(direction):
+#	.set_direction(direction)
+#	pass
 
 func set_collision_enabled(enabled):
 	$CollisionShape2D.disabled = !enabled
@@ -47,9 +49,9 @@ func create_bullet():
 	spawn.direction = _direction
 	spawn.set_shooter(self)
 	spawn.set_as_toplevel(true)
+	emit_signal("create_bullet", spawn)
 	add_child(spawn)
 	return true
-	
 
 func face_player():
 	if !player_detection2.can_see_player():

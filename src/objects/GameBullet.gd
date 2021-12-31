@@ -3,6 +3,7 @@ extends KinematicBody2D
 
 onready var collision_shape = $CollisionShape2D
 onready var animation_player = $AnimationPlayer
+onready var timer = $Timer
 
 export(bool) var destroyed_by_sword = false
 export(int) var direction = 1
@@ -16,6 +17,9 @@ export(String, FILE, "*.tscn,*.scn") var debris_right
 export(String, FILE, "*.wav") var hit_player_sfx
 export(String, FILE, "*.wav") var hit_wall_sfx
 
+export(float) var damage_cooldown = 0
+export(bool) var destroyed_by_bullets = true
+
 #onready var animation_player = $AnimationPlayer
 var ExplosionScene = null
 var DebrisLeft = null
@@ -27,6 +31,9 @@ var shooter = null
 var created_debris = false
 
 func _ready():
+	if damage_cooldown > 0:
+		delay_damage(damage_cooldown)
+
 	if explosion_effect != '':
 		ExplosionScene = load(explosion_effect)
 	if debris_left != '':
@@ -47,9 +54,13 @@ func _ready():
 func set_shooter(value):
 	shooter = value
 
+func delay_damage(time):
+	collision_shape.set_deferred("disabled", true)
+	timer.start(time)
+
 func destroy(quietly = false):
 	disable(quietly)
-	if animation_player.has_animation("Destroy"):
+	if !quietly and animation_player.has_animation("Destroy"):
 		animation_player.play("Destroy")
 	else:
 		visible = false
@@ -57,7 +68,7 @@ func destroy(quietly = false):
 
 func disable(quietly = false):
 	velocity = 0.0
-	collision_shape.disabled = true
+	collision_shape.set_deferred("disabled", true)
 	if !quietly:
 		create_debris()
 
@@ -81,12 +92,14 @@ func create_debris():
 func _physics_process(delta):
 	$Sprite.scale.x = direction
 	
+	var movement = Vector2(direction, 0) * velocity * delta
+	
 	var old_shooter_enabled = false
 	if shooter != null:
 		old_shooter_enabled = shooter.is_collision_enabled()
 		shooter.set_collision_enabled(false)
 	
-	var collision = move_and_collide(Vector2(direction, 0) * velocity * delta)
+	var collision = move_and_collide(movement)
 	
 	if shooter != null and old_shooter_enabled:
 		shooter.set_collision_enabled(true)
@@ -104,15 +117,12 @@ func _physics_process(delta):
 	explode()
 	var hit_direction = 1 if collision.position > collision.collider.global_position else -1
 
-	if collision.collider is GamePlayer:
-		if hit_player_sfx != '':
-			Game.play_sfx_at(HitPlayerSFX, collision.position)
-
-		if !collision.collider.is_invincible():
-			collision.collider.get_hit(hit_direction)
-			Game.take_damage(damage)
-		else:
-			print("Player was invincible")
+	if collision.collider.name == "GamePlayer":
+		hit_player(collision.collider, collision.position)
+		return
+	
+	if "destroyed_by_bullets" in collision.collider:
+		collision.collider.explode()
 		return
 	
 	if collision.collider is GameEnemy:
@@ -127,6 +137,7 @@ func _physics_process(delta):
 		return
 		
 	print("Hit something")
+	print(collision.collider.name)
 	print(collision.collider)
 
 func explode():
@@ -153,3 +164,21 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		visible = false
 		call_deferred("queue_free")
 		return
+
+func hit_player(player, hit_position = null):
+	if hit_position == null:
+		hit_position = position
+		
+	if hit_player_sfx != '':
+		Game.play_sfx_at(HitPlayerSFX, position)
+
+	if !player.is_invincible():
+		var hit_direction = 1 if position > player.global_position else -1
+		player.get_hit(hit_direction)
+		Game.take_damage(damage)
+	else:
+		print("Player was invincible")
+	pass
+
+func _on_Timer_timeout():
+	collision_shape.disabled = false

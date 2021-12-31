@@ -366,4 +366,7 @@ func knockback(x, y):
 	current_knockback.x = x * data.scale.x
 	current_knockback.y = y
 
-
+func _on_GameHurtbox_body_entered(body):
+	if body is GameBullet:
+		body.explode()
+		body.hit_player(self)
