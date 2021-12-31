@@ -35,7 +35,9 @@ tracks/0/keys = {
 "values": [ 8, 9, 10, 11 ]
 }
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 5.0
+height = 10.0
 
 [node name="ThrownSword" type="KinematicBody2D"]
 collision_layer = 256
@@ -59,6 +61,8 @@ one_shot = true
 autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 2 )
+rotation = 1.5708
 shape = SubResource( 6 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

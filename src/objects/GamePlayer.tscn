@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://src/objects/GamePlayer.gd" type="Script" id=1]
 [ext_resource path="res://assets/player/CaptainSword.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://assets/sfx/swish2.wav" type="AudioStream" id=12]
 [ext_resource path="res://assets/sfx/swish.wav" type="AudioStream" id=13]
 [ext_resource path="res://assets/sfx/jump.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/sfx/hit.wav" type="AudioStream" id=15]
 
 [sub_resource type="RectangleShape2D" id=25]
 extents = Vector2( 7, 12 )
@@ -300,6 +301,20 @@ tracks/7/keys = {
 "args": [ 1.0, false ],
 "method": "start_invincibility"
 } ]
+}
+tracks/8/type = "audio"
+tracks/8/path = NodePath("AudioStreamPlayer")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 15 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=4]
@@ -786,7 +801,7 @@ speed = Vector2( 120, 250 )
 texture = ExtResource( 2 )
 hframes = 6
 vframes = 8
-frame = 12
+frame = 18
 
 [node name="Attacks" type="Node2D" parent="SpriteHolder/Sprite"]
 
@@ -849,6 +864,7 @@ anims/Stop = SubResource( 51 )
 [node name="Data" type="Node2D" parent="."]
 
 [node name="SwordThrower" parent="Data" instance=ExtResource( 9 )]
+position = Vector2( 0, -4 )
 
 [node name="PlatformDetector" type="RayCast2D" parent="Data"]
 enabled = true

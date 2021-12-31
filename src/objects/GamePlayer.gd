@@ -315,7 +315,7 @@ func get_hit(direction = 0):
 func _on_AnimationPlayer_animation_started(anim_name: String) -> void:
 	if anim_name == "Jump":
 		$JumpAudioStreamPlayer.play()
-		pass
+		return
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if (anim_name == "Hit"):

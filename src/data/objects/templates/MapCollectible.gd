@@ -2,13 +2,17 @@ extends MapNode
 
 export(bool) var call_destroy_animation = false
 export(String) var item_id = ''
+export(String, FILE, "*.wav") var collect_sfx
 
 signal collected
 
 onready var animation_player = $AnimationPlayer
 
+var CollectSFX = null
+
 func _ready():
-	pass # Replace with function body.
+	if collect_sfx != '':
+		CollectSFX = load(collect_sfx)
 
 func _on_MapCollectible_body_entered(body):
 	if not body is GamePlayer:
@@ -17,6 +21,9 @@ func _on_MapCollectible_body_entered(body):
 	emit_signal("collected")
 	if item_id != '':
 		Game.collect_item(item_id)
+	
+	if collect_sfx != '':
+		Game.play_sfx_at(CollectSFX, global_position)
 	
 	if call_destroy_animation:
 		animation_player.play("Destroy")

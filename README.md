@@ -17,3 +17,8 @@ Sound Effects:
  - https://pixabay.com/sound-effects/karate-chop-6357/
  - https://pixabay.com/sound-effects/musket-explosion-6383/
  - https://pixabay.com/sound-effects/whipslapbeltpunch-6949/
+ - https://pixabay.com/sound-effects/hitting-in-a-face-5990/
+ - https://pixabay.com/sound-effects/dragonfly-6796/
+ - https://pixabay.com/sound-effects/collect-5930/
+ - https://pixabay.com/sound-effects/cartoon-wink-magic-sparkle-6896/
+ 

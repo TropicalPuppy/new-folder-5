@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/enemies/Seashell.png" type="Texture" id=2]
 [ext_resource path="res://src/data/enemies/Seashell.gd" type="Script" id=3]
 [ext_resource path="res://src/helpers/PlayerDetectionZone.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/sfx/plop.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/sfx/cork.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/sfx/crack.wav" type="AudioStream" id=6]
 
 [sub_resource type="Animation" id=2]
@@ -144,7 +144,7 @@ tracks/3/keys = {
 "start_offset": 0.0,
 "stream": ExtResource( 5 )
 } ],
-"times": PoolRealArray( 0.3 )
+"times": PoolRealArray( 0.2 )
 }
 
 [sub_resource type="Animation" id=5]

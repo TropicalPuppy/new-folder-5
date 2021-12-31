@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/dragonfly.wav-87417813c47fc546fa527dd13396b824.sample"
+
+[deps]
+
+source_file="res://assets/sfx/dragonfly.wav"
+dest_files=[ "res://.import/dragonfly.wav-87417813c47fc546fa527dd13396b824.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
