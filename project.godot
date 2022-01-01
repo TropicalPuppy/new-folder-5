@@ -262,6 +262,7 @@ debug={
 2d_physics/layer_10="Barriers"
 2d_physics/layer_11="Debris"
 2d_physics/layer_12="Loot"
+2d_physics/layer_13="Pit"
 
 [physics]
 

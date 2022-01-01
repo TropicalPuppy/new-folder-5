@@ -801,6 +801,7 @@ speed = Vector2( 120, 250 )
 texture = ExtResource( 2 )
 hframes = 6
 vframes = 8
+frame = 18
 
 [node name="Attacks" type="Node2D" parent="SpriteHolder/Sprite"]
 
@@ -866,9 +867,16 @@ anims/Stop = SubResource( 51 )
 position = Vector2( 0, -4 )
 
 [node name="PlatformDetector" type="RayCast2D" parent="Data"]
+position = Vector2( 0, 12 )
 enabled = true
 cast_to = Vector2( 0, 6 )
 collision_mask = 8
+
+[node name="GroundDetector" type="RayCast2D" parent="Data"]
+position = Vector2( 0, 12 )
+cast_to = Vector2( 0, 1 )
+collision_mask = 16
+collide_with_areas = true
 
 [node name="BackDetector" type="RayCast2D" parent="Data"]
 position = Vector2( -7, 0 )

@@ -7,12 +7,12 @@ onready var collision_shape = $CollisionShape2D
 onready var data = $Data
 onready var interactionRay = $Data/InteractionRayCast
 onready var platform_detector = $Data/PlatformDetector
+onready var ground_detector = $Data/GroundDetector
 onready var hurtbox = $Data/PlayerHurtbox
 onready var sword_thrower = $Data/SwordThrower
 onready var throw_cooldown = $ThrowCooldown
 onready var back_detector = $Data/BackDetector
 onready var front_detector = $Data/FrontDetector
-
 
 const swordLess = preload("res://assets/player/Captain.png")
 const swordFull = preload("res://assets/player/CaptainSword.png")
@@ -41,6 +41,8 @@ var combo_is_thrust = false
 var has_double_jumped = false
 var was_on_air = false
 var current_knockback = Vector2.ZERO
+var last_ground = Vector2.ZERO
+var last_ground_direction = 1
 
 func _ready() -> void:
 	set_show_sword(false)
@@ -89,16 +91,24 @@ func _physics_process(delta: float) -> void:
 	
 	match state:
 		State.MOVE:
+			update_last_ground()
 			disable_all_hitboxes()
 			move_state(delta)
 			check_attack_input()
 		State.HIT:
+			update_last_ground()
 			disable_all_hitboxes()
 			hit_state(delta)
 		State.ATTACK:
 			attack_state(delta)
 		State.DEAD:
 			pass
+
+func update_last_ground():
+	ground_detector.force_raycast_update()
+	if ground_detector.is_colliding():
+		last_ground = position
+		last_ground_direction = data.scale.x
 
 func update_sprite():
 	if !Game.has_sword and Input.is_action_pressed("debug") and Input.is_action_just_pressed("slash"):
@@ -381,3 +391,12 @@ func _on_GameHurtbox_body_entered(body):
 	if body is GameBullet:
 		body.explode()
 		body.hit_player(self)
+
+func notify_pit():
+	Game.take_damage(5)
+#	state = State.HIT
+#	current_knockback = Vector2.ZERO
+	position = last_ground
+	change_direction(last_ground_direction)
+	hurtbox.start_invincibility(1)
+	
