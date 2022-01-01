@@ -162,6 +162,10 @@ extents = Vector2( 11, 8.5 )
 [node name="Crabby" instance=ExtResource( 1 )]
 speed = Vector2( 75, 250 )
 life = 50
+loot_1_scene = "res://src/data/objects/loot/GreenDiamond.tscn"
+loot_1_chance = 25.0
+loot_2_scene = "res://src/data/objects/loot/GoldCoin.tscn"
+loot_3_scene = "res://src/data/objects/loot/SilverCoin.tscn"
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )

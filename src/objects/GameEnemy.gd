@@ -22,11 +22,20 @@ export(Direction) var initial_direction = Direction.LEFT
 export(float) var x_offset_when_facing_left = 0
 export(float) var x_offset_when_facing_right = 0
 
+export(String, FILE, "*.tscn,*.scn") var loot_1_scene = ''
+export(float) var loot_1_chance = 10.0
+export(String, FILE, "*.tscn,*.scn") var loot_2_scene = ''
+export(float) var loot_2_chance = 50.0
+export(String, FILE, "*.tscn,*.scn") var loot_3_scene = ''
+export(float) var loot_3_chance = 100.0
+
 var _state = State.IDLE
 var _direction = -1
 var current_knockback = Vector2.ZERO
 var knockback_direction = -1
 var original_collision_x = 0
+
+var LootType = null
 
 func _ready() -> void:
 	$Data/GameHurtbox.set_enemy(self)
@@ -35,6 +44,14 @@ func _ready() -> void:
 		_direction = 1
 	
 	original_collision_x = collision_shape.position.x
+
+	var rng = randi() % 100
+	if loot_1_scene != '' and rng > (100 - loot_1_chance):
+		LootType = load(loot_1_scene)
+	elif loot_2_scene != '' and rng > (100 - loot_2_chance):
+		LootType = load(loot_2_scene)
+	elif loot_3_scene != '' and rng > (100 - loot_3_chance):
+		LootType = load(loot_3_scene)
 
 func set_direction(direction):
 	_direction = direction
@@ -60,6 +77,9 @@ func update_animation():
 func destroy():
 	_state = State.DEAD
 	_velocity = Vector2.ZERO
+	
+	if LootType != null:
+		Game.create_debris(LootType.instance(), global_position, Vector2.UP * 100)
 
 func get_new_animation():
 	if _state == State.HIT:
@@ -115,7 +135,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		if life > 0:
 			_state = State.IDLE
 		else:
-			_state = State.DEAD
+			destroy()
 		return
 		
 	if anim_name == "Destroy":

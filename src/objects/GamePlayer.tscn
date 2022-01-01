@@ -289,7 +289,7 @@ tracks/6/keys = {
 } ]
 }
 tracks/7/type = "method"
-tracks/7/path = NodePath("Data/GameHurtbox")
+tracks/7/path = NodePath("Data/PlayerHurtbox")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -884,10 +884,10 @@ collide_with_areas = true
 
 [node name="InteractionRayCast" type="RayCast2D" parent="Data"]
 
-[node name="GameHurtbox" parent="Data" instance=ExtResource( 3 )]
+[node name="PlayerHurtbox" parent="Data" instance=ExtResource( 3 )]
 collision_layer = 32
 
-[node name="CollisionShape2D" parent="Data/GameHurtbox" index="0"]
+[node name="CollisionShape2D" parent="Data/PlayerHurtbox" index="0"]
 position = Vector2( 0, -2 )
 shape = SubResource( 48 )
 
@@ -940,12 +940,12 @@ one_shot = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
-[connection signal="area_entered" from="Data/GameHurtbox" to="." method="_on_GameHurtbox_area_entered"]
-[connection signal="body_entered" from="Data/GameHurtbox" to="." method="_on_GameHurtbox_body_entered"]
-[connection signal="invincibility_ended" from="Data/GameHurtbox" to="." method="_on_GameHurtbox_invincibility_ended"]
-[connection signal="invincibility_started" from="Data/GameHurtbox" to="." method="_on_GameHurtbox_invincibility_started"]
+[connection signal="area_entered" from="Data/PlayerHurtbox" to="." method="_on_GameHurtbox_area_entered"]
+[connection signal="body_entered" from="Data/PlayerHurtbox" to="." method="_on_GameHurtbox_body_entered"]
+[connection signal="invincibility_ended" from="Data/PlayerHurtbox" to="." method="_on_GameHurtbox_invincibility_ended"]
+[connection signal="invincibility_started" from="Data/PlayerHurtbox" to="." method="_on_GameHurtbox_invincibility_started"]
 
-[editable path="Data/GameHurtbox"]
+[editable path="Data/PlayerHurtbox"]
 [editable path="Data/Hitboxes/AirSlashHitbox"]
 [editable path="Data/Hitboxes/SlashHitbox"]
 [editable path="Data/Hitboxes/ThrustHitbox"]

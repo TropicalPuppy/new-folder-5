@@ -12,6 +12,7 @@ signal update_player_position
 signal update_map
 signal create_debris
 signal play_sfx_at
+signal play_sfx
 signal money_changed
 
 var player_scene = null setget set_player_scene
@@ -102,7 +103,7 @@ func collect_item(item_id):
 		'GoldCoin':
 			increase_money(5)
 		'GreenDiamond':
-			increase_money(20)
+			increase_money(25)
 		'RedDiamond':
 			increase_money(50)
 		'BlueDiamond':
@@ -120,5 +121,8 @@ func take_damage(damage):
 func create_debris(debris, position, direction):
 	emit_signal("create_debris", debris, position, direction)
 
-func play_sfx_at(sfx, position):
-	emit_signal("play_sfx_at", sfx, position)
+func play_sfx_at(sfx, position, volume = 0.0):
+	emit_signal("play_sfx_at", sfx, position, volume)
+
+func play_sfx(sfx, volume = 0.0):
+	emit_signal("play_sfx", sfx, volume)
