@@ -93,47 +93,54 @@ z_index = -1
 
 [node name="PalmTreeLeft" parent="BackgroundTrees" index="0" instance=ExtResource( 20 )]
 position = Vector2( 254, 227 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="PalmTreeLeft2" parent="BackgroundTrees" index="1" instance=ExtResource( 20 )]
 position = Vector2( 1015, 650 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="PalmTreeLeft3" parent="BackgroundTrees" index="2" instance=ExtResource( 20 )]
 position = Vector2( 528, 293 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="PalmTreeCenter" parent="BackgroundTrees" index="3" instance=ExtResource( 21 )]
 position = Vector2( 147, 193 )
+frame = 3
 
 [node name="PalmTreeCenter2" parent="BackgroundTrees" index="4" instance=ExtResource( 21 )]
 position = Vector2( 715, 193 )
+frame = 3
 
 [node name="PalmTreeCenter3" parent="BackgroundTrees" index="5" instance=ExtResource( 21 )]
 position = Vector2( 1118, 650 )
+frame = 3
 
 [node name="PalmTreeCenter4" parent="BackgroundTrees" index="6" instance=ExtResource( 21 )]
 position = Vector2( 494, 643 )
+frame = 3
 
 [node name="PalmTreeCenter5" parent="BackgroundTrees" index="7" instance=ExtResource( 21 )]
 position = Vector2( 882, 610 )
+frame = 3
 
 [node name="PalmTreeCenter6" parent="BackgroundTrees" index="8" instance=ExtResource( 21 )]
 position = Vector2( 119, 641 )
+frame = 3
 
 [node name="PalmTreeCenter7" parent="BackgroundTrees" index="9" instance=ExtResource( 21 )]
 position = Vector2( 537, 648 )
+frame = 3
 
 [node name="PalmTreeRight" parent="BackgroundTrees" index="10" instance=ExtResource( 22 )]
 position = Vector2( 660, 326 )
-frame = 1
+frame = 3
 
 [node name="PalmTreeRight2" parent="BackgroundTrees" index="11" instance=ExtResource( 22 )]
 position = Vector2( 1203, 553 )
-frame = 1
+frame = 3
 
 [node name="TileMap" type="TileMap" parent="." index="1"]
 tile_set = ExtResource( 2 )
@@ -204,28 +211,34 @@ position = Vector2( 975, 720 )
 
 [node name="Seashell" parent="Enemies" index="8" instance=ExtResource( 29 )]
 position = Vector2( 1136, 462 )
+collision_mask = 152
 enable_gravity = true
 
 [node name="Seashell2" parent="Enemies" index="9" instance=ExtResource( 29 )]
 position = Vector2( 1280, 558 )
+collision_mask = 152
 enable_gravity = true
 
 [node name="Seashell3" parent="Enemies" index="10" instance=ExtResource( 29 )]
 position = Vector2( 839, 686 )
+collision_mask = 152
 enable_gravity = true
 
 [node name="TotemHead2" parent="Enemies" index="11" instance=ExtResource( 33 )]
 position = Vector2( 1321, 305 )
+enable_gravity = false
 initial_direction = 1
 face_player_automatically = false
 
 [node name="TotemHead3" parent="Enemies" index="12" instance=ExtResource( 34 )]
 position = Vector2( 1777, 80 )
+enable_gravity = false
 
 [node name="Traps" type="Node2D" parent="." index="5"]
 
 [node name="Cannon3" parent="Traps" index="0" instance=ExtResource( 35 )]
 position = Vector2( 2071, 660 )
+collision_mask = 152
 
 [node name="Objects" type="Node2D" parent="." index="6"]
 

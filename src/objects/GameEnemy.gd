@@ -12,7 +12,7 @@ enum State {
 }
 
 enum Direction {
-	LEFT,set
+	LEFT,
 	RIGHT
 }
 
