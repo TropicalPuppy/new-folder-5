@@ -1,6 +1,5 @@
 extends Node
 
-onready var text = GameText.new()
 onready var screen = GameScreen.new()
 onready var scenes = SceneManager.new()
 onready var maps = MapManager.new()
@@ -58,6 +57,11 @@ func increase_money(increase):
 
 func _ready() -> void:
 	pass
+
+func _exit_tree():
+	screen.queue_free()
+	scenes.queue_free()
+	maps.queue_free()
 
 func initialize() -> void:
 	pass

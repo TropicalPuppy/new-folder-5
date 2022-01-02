@@ -60,11 +60,6 @@ _global_script_classes=[ {
 "path": "res://src/objects/GameScreen.gd"
 }, {
 "base": "Node",
-"class": "GameText",
-"language": "GDScript",
-"path": "res://src/objects/GameText.gd"
-}, {
-"base": "Node",
 "class": "MapManager",
 "language": "GDScript",
 "path": "res://src/managers/maps.gd"
@@ -120,7 +115,6 @@ _global_script_class_icons={
 "GameMovingEnemy": "",
 "GamePlayer": "",
 "GameScreen": "",
-"GameText": "",
 "MapManager": "",
 "MapNode": "",
 "SceneManager": "",
