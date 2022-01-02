@@ -131,13 +131,7 @@ func _physics_process(delta):
 	if collision.collider is StaticBody2D:
 		if hit_wall_sfx != '':
 			Game.play_sfx_at(HitWallSFX, collision.position)
-
-		print("hit the scenario")
 		return
-		
-	print("Hit something")
-	print(collision.collider.name)
-	print(collision.collider)
 
 func explode():
 	if explosion_effect == '':
@@ -174,8 +168,6 @@ func hit_player(player, hit_position = null):
 	if !player.is_invincible():
 		var hit_direction = 1 if position > player.global_position else -1
 		player.get_hit(damage, hit_direction)
-	else:
-		print("Player was invincible")
 	pass
 
 func _on_Timer_timeout():

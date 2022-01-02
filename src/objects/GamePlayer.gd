@@ -89,6 +89,7 @@ func _physics_process(delta: float) -> void:
 
 	update_sprite()
 	update_invincibility_passability()
+	update_speed()
 	
 	match state:
 		State.MOVE:
@@ -104,6 +105,10 @@ func _physics_process(delta: float) -> void:
 			attack_state(delta)
 		State.DEAD:
 			pass
+
+func update_speed():
+	speed.x = 118 + Game.level * 2
+	speed.y = 248 + Game.level * 2
 
 func update_last_ground():
 	ground_detector.force_raycast_update()
@@ -327,8 +332,14 @@ func _on_GameHurtbox_area_entered(area: Area2D) -> void:
 		get_hit(area.damage)
 
 func get_hit(damage, direction = 0):
-	Game.show_damage(damage, global_position, true)
-	Game.take_damage(damage)
+	var max_damage = damage * (101 - Game.level) / 100.0
+	var hard_def = 0 if Game.level == 1 else Game.level / 5.0
+	var max_def = int(damage / 10.0)
+	var def = 0 if max_def == 0 else randi() % max_def
+	var real_damage = int(max_damage - def - hard_def)
+	
+	Game.show_damage(real_damage, global_position, true)
+	Game.take_damage(real_damage)
 	state = State.HIT
 	current_knockback = Vector2.ZERO
 	change_direction(direction)
@@ -385,7 +396,12 @@ func throw_sword():
 
 	sword_thrower.throw(direction, x_offset)
 	Game.lose_sword()
-	throw_cooldown.start()
+	throw_cooldown.start(calc_throw_cooldown())
+
+func calc_throw_cooldown():
+	var base = 1.2
+	var off = floor(Game.level / 2.5) / 10.0
+	return base - off
 
 func run():
 	emit_signal("run", position, data.scale.x)
@@ -409,9 +425,10 @@ func _on_GameHurtbox_body_entered(body):
 
 func notify_pit():
 	Game.take_damage(5)
-#	state = State.HIT
-#	current_knockback = Vector2.ZERO
 	position = last_ground
 	change_direction(last_ground_direction)
 	hurtbox.start_invincibility(1)
+	call_deferred("show_damage", 5)
 	
+func show_damage(damage):
+	Game.show_damage(damage, global_position, true)

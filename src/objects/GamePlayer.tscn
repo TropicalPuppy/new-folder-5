@@ -943,7 +943,7 @@ stream = ExtResource( 14 )
 bus = "Player"
 
 [node name="ThrowCooldown" type="Timer" parent="."]
-wait_time = 0.6
+wait_time = 1.2
 one_shot = true
 
 [node name="ThrustCooldown" type="Timer" parent="."]

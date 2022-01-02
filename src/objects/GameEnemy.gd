@@ -4,6 +4,7 @@ class_name GameEnemy
 onready var sprite = $Sprite
 onready var animation_player = $AnimationPlayer
 onready var collision_shape = $CollisionShape2D
+onready var life_bar = $LifeBar
 
 enum State {
 	IDLE,
@@ -39,6 +40,9 @@ var LootType = null
 
 func _ready() -> void:
 	$Data/GameHurtbox.set_enemy(self)
+	life_bar.set_max_life(life)
+	life_bar.set_life(life)
+
 	_velocity.x = speed.x
 	if initial_direction == Direction.RIGHT:
 		_direction = 1
@@ -139,6 +143,7 @@ func get_hit(damage, direction):
 	life = max(life - real_damage, 0)
 	_state = State.HIT
 	Game.add_xp(damage / 5.0)
+	life_bar.set_life(life)
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "Hit":

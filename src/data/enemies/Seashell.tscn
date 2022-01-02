@@ -488,6 +488,10 @@ shape = SubResource( 11 )
 [node name="CollisionShape2D" parent="Data/PlayerDetectionZoneMelee" index="0"]
 shape = SubResource( 16 )
 
+[node name="LifeBar" parent="." index="7"]
+margin_top = 21.0
+margin_bottom = 21.0
+
 [editable path="Data/GameHitbox"]
 [editable path="Data/GameHurtbox"]
 [editable path="Data/PlayerDetectionZone"]

@@ -213,5 +213,9 @@ cast_to = Vector2( 20, 0 )
 [node name="MoveCooldown" parent="." index="8"]
 wait_time = 0.4
 
+[node name="LifeBar" parent="." index="9"]
+margin_top = 16.0
+margin_bottom = 16.0
+
 [editable path="Data/GameHitbox"]
 [editable path="Data/GameHurtbox"]
