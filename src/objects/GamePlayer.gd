@@ -32,7 +32,7 @@ enum State {
 	DEAD
 }
 
-const FLOOR_DETECT_DISTANCE = 20.0
+const FLOOR_DETECT_DISTANCE = 5.0
 
 var state = State.MOVE
 var show_sword = false setget set_show_sword
