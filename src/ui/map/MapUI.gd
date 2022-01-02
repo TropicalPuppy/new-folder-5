@@ -7,3 +7,6 @@ func _ready():
 
 func call_menu():
 	pause_ui.open()
+
+func _process(_delta):
+	$Modal.visible = get_tree().paused
