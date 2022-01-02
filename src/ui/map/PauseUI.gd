@@ -24,9 +24,13 @@ func _on_SFXCheckButton_toggled(button_pressed):
 
 func open():
 	get_tree().paused = true
-	set_deferred("visible", true)
+	call_deferred("show")
 
 	update_level()
+
+func show():
+	visible = true
+	$Music/CheckButton.grab_focus()
 
 func close():
 	visible = false	
