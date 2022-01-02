@@ -14,6 +14,7 @@ signal create_debris
 signal play_sfx_at
 signal play_sfx
 signal money_changed
+signal call_menu
 
 var player_scene = null setget set_player_scene
 #var player = null setget set_player
@@ -31,6 +32,22 @@ var money = 0
 var jump_exp = 0
 var run_exp = 0
 var has_sword = false
+
+var master_volume = 100 setget set_master_volume
+var music_enabled = true setget set_music_enabled
+var sfx_enabled = true setget set_sfx_enabled
+
+func set_master_volume(value):
+	master_volume = value
+	AudioServer.set_bus_volume_db(0, linear2db(value / 100.0))
+
+func set_music_enabled(value):
+	music_enabled = value
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), !value)
+
+func set_sfx_enabled(value):
+	sfx_enabled = value
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), !value)
 
 func set_max_life(value):
 	max_life = max(1, value)
@@ -126,3 +143,6 @@ func play_sfx_at(sfx, position, volume = 0.0):
 
 func play_sfx(sfx, volume = 0.0):
 	emit_signal("play_sfx", sfx, volume)
+
+func call_menu():
+	emit_signal("call_menu")

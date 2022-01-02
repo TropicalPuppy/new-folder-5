@@ -4,6 +4,7 @@
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer"]
 autoplay = true
+bus = "Music"
 script = ExtResource( 2 )
 
 [node name="TweenIn" type="Tween" parent="."]

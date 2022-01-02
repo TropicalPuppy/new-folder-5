@@ -6,6 +6,7 @@ onready var map_holder = $MapHolder
 onready var camera = $Camera2D
 onready var audio2d = $AudioStreamPlayer2D
 onready var audio = $AudioStreamPlayer
+onready var map_ui = $MapUI
 
 const StuckSwordScene = preload("res://src/data/platforms/StuckSword.tscn")
 const RunEffectScene = preload("res://src/data/sprites/RunEffect.tscn")
@@ -15,6 +16,10 @@ const FallEffectScene = preload("res://src/data/sprites/FallEffect.tscn")
 var initialized = false
 var is_ready = false
 var auto_initialize = false
+
+func _physics_process(_delta):
+	if Input.is_action_just_pressed("ui_cancel"):
+		call_menu()
 
 func _ready() -> void:
 	is_ready = true
@@ -31,6 +36,8 @@ func _ready() -> void:
 	Game.connect("play_sfx_at", self, "play_sfx_at")
 	# warning-ignore:return_value_discarded
 	Game.connect("play_sfx", self, "play_sfx")
+	# warning-ignore:return_value_discarded
+	Game.connect("call_menu", self, "call_menu")
 	
 func load_initial_player() -> void:
 	if y_sort.get_child_count() == 0:
@@ -133,7 +140,6 @@ func create_debris(debris, position, direction):
 	debris.global_position = position
 	debris.apply_impulse(Vector2.ZERO, direction)
 	call_deferred("add_child", debris)
-#	add_child(debris)
 
 func play_sfx_at(sfx, position, volume = 0):
 	audio2d.global_position = position
@@ -145,3 +151,6 @@ func play_sfx(sfx, volume = 0):
 	audio.volume_db = volume
 	audio.stream = sfx
 	audio.play()
+
+func call_menu():
+	map_ui.call_menu()
