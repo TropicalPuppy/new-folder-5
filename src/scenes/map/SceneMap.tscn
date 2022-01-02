@@ -38,7 +38,13 @@ transform = Transform2D( 2, 0, 0, 2, 0, 0 )
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 bus = "SFX"
 
+[node name="AlternativeAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = "SFX"
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = "SFX"
+
+[node name="AlternativeAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = "SFX"
 
 [connection signal="tree_entered" from="." to="." method="_on_SceneMap_tree_entered"]

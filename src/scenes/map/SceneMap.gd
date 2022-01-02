@@ -6,6 +6,8 @@ onready var map_holder = $MapHolder
 onready var camera = $Camera2D
 onready var audio2d = $AudioStreamPlayer2D
 onready var audio = $AudioStreamPlayer
+onready var audio2db = $AlternativeAudioStreamPlayer2D
+onready var audiob = $AlternativeAudioStreamPlayer
 onready var map_ui = $MapUI
 
 const StuckSwordScene = preload("res://src/data/platforms/StuckSword.tscn")
@@ -146,15 +148,19 @@ func create_debris(debris, position, direction):
 	call_deferred("add_child", debris)
 
 func play_sfx_at(sfx, position, volume = 0):
-	audio2d.global_position = position
-	audio2d.volume_db = volume
-	audio2d.stream = sfx
-	audio2d.play()
+	var player = audio2db if audio2d.playing else audio2d
+	
+	player.global_position = position
+	player.volume_db = volume
+	player.stream = sfx
+	player.play()
 
 func play_sfx(sfx, volume = 0):
-	audio.volume_db = volume
-	audio.stream = sfx
-	audio.play()
+	var player = audiob if audio.playing else audio
+	
+	player.volume_db = volume
+	player.stream = sfx
+	player.play()
 
 func call_menu():
 	map_ui.call_menu()
