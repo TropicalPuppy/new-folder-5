@@ -17,6 +17,7 @@ signal money_changed
 signal xp_changed
 signal level_up
 signal call_menu
+signal damage
 
 var player_scene = null setget set_player_scene
 #var player = null setget set_player
@@ -211,3 +212,5 @@ func level_up():
 func get_required_xp(for_level):
 	return (for_level - 2) * 10 + 100
 	
+func show_damage(damage, position, is_player = false):
+	emit_signal("damage", damage, position, is_player)

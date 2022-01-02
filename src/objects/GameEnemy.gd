@@ -133,7 +133,7 @@ func get_hit(damage, direction):
 	var extra_damage = randi() % max_extra_damage
 	var real_damage = base_damage + extra_damage
 	
-#	print(self.name + " took " + String(real_damage) + " damage")
+	Game.show_damage(real_damage, global_position)
 	
 	knockback_direction = direction
 	life = max(life - real_damage, 0)

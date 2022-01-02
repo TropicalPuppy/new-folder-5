@@ -173,8 +173,7 @@ func hit_player(player, hit_position = null):
 
 	if !player.is_invincible():
 		var hit_direction = 1 if position > player.global_position else -1
-		player.get_hit(hit_direction)
-		Game.take_damage(damage)
+		player.get_hit(damage, hit_direction)
 	else:
 		print("Player was invincible")
 	pass

@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/objects/GameMovingEnemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/enemies/Crabby.png" type="Texture" id=2]
 [ext_resource path="res://assets/sfx/crab.wav" type="AudioStream" id=3]
-[ext_resource path="res://src/data/enemies/Crabby.gd" type="Script" id=4]
 
 [sub_resource type="Animation" id=5]
 resource_name = "Destroy"
@@ -161,7 +160,6 @@ radius = 7.0
 extents = Vector2( 11, 8.5 )
 
 [node name="Crabby" instance=ExtResource( 1 )]
-script = ExtResource( 4 )
 speed = Vector2( 75, 350 )
 life = 50
 loot_1_scene = "res://src/data/objects/loot/GreenDiamond.tscn"
@@ -211,6 +209,9 @@ shape = SubResource( 15 )
 
 [node name="PlayerDetector" type="RayCast2D" parent="Data" index="2"]
 cast_to = Vector2( 20, 0 )
+
+[node name="MoveCooldown" parent="." index="8"]
+wait_time = 0.4
 
 [editable path="Data/GameHitbox"]
 [editable path="Data/GameHurtbox"]

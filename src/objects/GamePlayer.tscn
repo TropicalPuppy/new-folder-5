@@ -801,7 +801,7 @@ speed = Vector2( 120, 250 )
 texture = ExtResource( 2 )
 hframes = 6
 vframes = 8
-frame = 6
+frame = 36
 
 [node name="Attacks" type="Node2D" parent="SpriteHolder/Sprite"]
 
@@ -943,6 +943,10 @@ stream = ExtResource( 14 )
 bus = "Player"
 
 [node name="ThrowCooldown" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[node name="ThrustCooldown" type="Timer" parent="."]
 wait_time = 0.6
 one_shot = true
 

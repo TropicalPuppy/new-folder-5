@@ -12,6 +12,8 @@ const StuckSwordScene = preload("res://src/data/platforms/StuckSword.tscn")
 const RunEffectScene = preload("res://src/data/sprites/RunEffect.tscn")
 const JumpEffectScene = preload("res://src/data/sprites/JumpEffect.tscn")
 const FallEffectScene = preload("res://src/data/sprites/FallEffect.tscn")
+const DamageIndicator = preload("res://src/data/sprites/DamageIndicator.tscn")
+const PlayerDamageIndicator = preload("res://src/data/sprites/PlayerDamageIndicator.tscn")
 
 var initialized = false
 var is_ready = false
@@ -38,6 +40,8 @@ func _ready() -> void:
 	Game.connect("play_sfx", self, "play_sfx")
 	# warning-ignore:return_value_discarded
 	Game.connect("call_menu", self, "call_menu")
+	# warning-ignore:return_value_discarded
+	Game.connect("damage", self, "show_damage")
 	
 func load_initial_player() -> void:
 	if y_sort.get_child_count() == 0:
@@ -154,3 +158,12 @@ func play_sfx(sfx, volume = 0):
 
 func call_menu():
 	map_ui.call_menu()
+
+func show_damage(damage, position, is_player = false):
+	var type = PlayerDamageIndicator if is_player else DamageIndicator
+	
+	var indicator = type.instance()
+	indicator.rect_position = position
+	indicator.set_as_toplevel(true)
+	indicator.set_value(int(damage))
+	add_child(indicator)

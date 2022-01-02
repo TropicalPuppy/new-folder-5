@@ -11,6 +11,7 @@ onready var ground_detector = $Data/GroundDetector
 onready var hurtbox = $Data/PlayerHurtbox
 onready var sword_thrower = $Data/SwordThrower
 onready var throw_cooldown = $ThrowCooldown
+onready var thrust_cooldown = $ThrustCooldown
 onready var back_detector = $Data/BackDetector
 onready var front_detector = $Data/FrontDetector
 
@@ -184,11 +185,13 @@ func attack_state(_delta: float) -> void:
 			else:
 				Game.add_swing_xp(0.2)
 			return
+
 	if Input.is_action_just_pressed("thrust"):
 		if old_anim == "Slash" or old_anim == "Slash2":
 			continue_combo = true
 			combo_is_thrust = true
 			Game.add_swing_xp(0.15)
+			thrust_cooldown.start()
 			return
 
 func check_attack_input():
@@ -214,10 +217,11 @@ func check_attack_input():
 		
 		return
 	
-	if Input.is_action_just_pressed("thrust") and is_on_floor():
+	if thrust_cooldown.is_stopped() and Input.is_action_just_pressed("thrust") and is_on_floor():
 		state = State.ATTACK
 		animation_player.play("Thrust")
 		Game.add_swing_xp(0.15)
+		thrust_cooldown.start()
 		return
 	
 	if Input.is_action_just_pressed("throw"):
@@ -314,17 +318,17 @@ func _on_GameHurtbox_area_entered(area: Area2D) -> void:
 		
 	if area is Spike:
 		if !is_on_floor():
-			get_hit()
-			Game.take_damage(5)
+			get_hit(5)
 			return
 		
 		return
 		
 	if area is GameHitbox:
-		get_hit()
-		Game.take_damage(area.damage)
+		get_hit(area.damage)
 
-func get_hit(direction = 0):
+func get_hit(damage, direction = 0):
+	Game.show_damage(damage, global_position, true)
+	Game.take_damage(damage)
 	state = State.HIT
 	current_knockback = Vector2.ZERO
 	change_direction(direction)
