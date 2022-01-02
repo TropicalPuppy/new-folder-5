@@ -64,9 +64,14 @@ func _ready():
 	# warning-ignore:return_value_discarded
 	Game.connect("money_changed", self, "set_money")
 
+	# warning-ignore:return_value_discarded
+	Game.connect("level_up", self, "level_up")
 
 func _physics_process(_delta):
 	if max_life_display != max_life or life_display != life:
 		update_life()
 	if money_display != money:
 		update_money()
+
+func level_up():
+	$LevelUp/AnimationPlayer.play("Animate")

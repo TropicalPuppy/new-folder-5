@@ -4,6 +4,7 @@ func _ready():
 	$VolumeSlider.value = Game.master_volume
 	$Music/CheckButton.pressed = Game.music_enabled
 	$SFX/CheckButton.pressed = Game.sfx_enabled
+	update_level()
 
 func _physics_process(_delta):
 	if !visible:
@@ -25,13 +26,17 @@ func open():
 	get_tree().paused = true
 	set_deferred("visible", true)
 
+	update_level()
+
 func close():
 	visible = false	
 	get_tree().set_deferred("paused", false)
 
-func _on_CloseButton_pressed():
-	pass
-
 
 func _on_BackButton_pressed():
 	close()
+
+func update_level():
+	Game.update_required_xp()
+	$LevelBar/LevelNumber.text = String(Game.level)
+	$LevelBar/Color.rect_size.x = clamp(Game.xp * 50.0 / Game.next_level_xp, 0, 50)

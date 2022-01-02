@@ -4,6 +4,7 @@ extends GameEnemy
 onready var platform_detector = $PlatformDetector
 onready var floor_detector_left = $FloorDetectorLeft
 onready var floor_detector_right = $FloorDetectorRight
+onready var move_cooldown = $MoveCooldown
 
 const FLOOR_DETECT_DISTANCE = 20.0
 
@@ -42,8 +43,12 @@ func apply_velocity(direction: Vector2, is_jump_interrupted: bool) -> void:
 func handle_movement():
 	flip_directions_on_wall()
 	flip_direction_to_avoid_falling()
+	
+	var dir = get_direction()
+	if !move_cooldown.is_stopped():
+		dir = 0
 
-	apply_velocity(Vector2(get_direction(), _velocity.y), true)
+	apply_velocity(Vector2(dir, _velocity.y), true)
 
 func dead_state():
 	.dead_state()
@@ -60,4 +65,6 @@ func flip_directions_on_wall():
 	if is_on_wall():
 		invert_direction()
 
-
+func get_hit(damage, direction):
+	.get_hit(damage, direction)
+	move_cooldown.start()

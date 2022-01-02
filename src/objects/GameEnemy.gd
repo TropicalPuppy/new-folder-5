@@ -126,9 +126,19 @@ func is_invincible():
 	return $Data/GameHurtbox/CollisionShape2D.disabled
 
 func get_hit(damage, direction):
+	var base_damage = (damage + Game.level) / 2.0
+
+	var multiplier = (9 + Game.level) / 10.0
+	var max_extra_damage = int(damage * multiplier)
+	var extra_damage = randi() % max_extra_damage
+	var real_damage = base_damage + extra_damage
+	
+#	print(self.name + " took " + String(real_damage) + " damage")
+	
 	knockback_direction = direction
-	life = max(life - damage, 0)
+	life = max(life - real_damage, 0)
 	_state = State.HIT
+	Game.add_xp(damage / 5.0)
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "Hit":

@@ -14,6 +14,8 @@ signal create_debris
 signal play_sfx_at
 signal play_sfx
 signal money_changed
+signal xp_changed
+signal level_up
 signal call_menu
 
 var player_scene = null setget set_player_scene
@@ -29,8 +31,13 @@ var max_life = 100 setget set_max_life
 var current_life = 100 setget set_life
 var can_double_jump = false
 var money = 0
-var jump_exp = 0
-var run_exp = 0
+var xp = 0
+var next_level_xp = 0
+var walk_xp = 0
+var jump_xp = 0
+var hit_xp = 0
+var swing_xp = 0
+var level = 1
 var has_sword = false
 
 var master_volume = 100 setget set_master_volume
@@ -134,6 +141,7 @@ func lose_sword():
 
 func take_damage(damage):
 	set_life(current_life - damage)
+	Game.add_hit_xp(damage / 10.0)
 
 func create_debris(debris, position, direction):
 	emit_signal("create_debris", debris, position, direction)
@@ -146,3 +154,60 @@ func play_sfx(sfx, volume = 0.0):
 
 func call_menu():
 	emit_signal("call_menu")
+
+func add_xp(amount):
+	if level >= 20:
+		return
+
+	xp += amount
+	emit_signal("xp_changed", xp)
+	check_xp()
+
+func add_side_xp(amount, current, max_allowed):
+	update_required_xp()
+	var max_side_xp = next_level_xp * max_allowed
+	if current >= max_side_xp:
+		return 0
+	
+	var new_amount = min(amount, max_side_xp - current)
+	add_xp(new_amount)
+	return new_amount
+	
+
+func add_walk_xp(amount):
+	walk_xp += add_side_xp(amount, walk_xp, 0.2)
+
+func add_jump_xp(amount):
+	jump_xp += add_side_xp(amount, jump_xp, 0.1)
+
+func add_hit_xp(amount):
+	hit_xp += add_side_xp(amount, hit_xp, 0.4)
+
+func add_swing_xp(amount):
+	swing_xp += add_side_xp(amount, swing_xp, 0.2)
+
+func check_xp():
+	if level >= 20:
+		return
+	
+	update_required_xp()
+	if xp >= next_level_xp:
+		level_up()
+		return
+
+func update_required_xp():
+	next_level_xp = get_required_xp(level + 1)
+
+func level_up():
+	level += 1
+	xp = 0
+	jump_xp = 0
+	walk_xp = 0
+	hit_xp = 0
+	swing_xp = 0
+	update_required_xp()
+	emit_signal("level_up")
+	
+func get_required_xp(for_level):
+	return (for_level - 2) * 10 + 100
+	

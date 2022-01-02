@@ -5,6 +5,19 @@
 
 [node name="GameMovingEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+speed = Vector2( 150, 350 )
+enable_gravity = true
+life = 20
+manage_enemy_layer = true
+initial_direction = 0
+x_offset_when_facing_left = 0.0
+x_offset_when_facing_right = 0.0
+loot_1_scene = ""
+loot_1_chance = 10.0
+loot_2_scene = ""
+loot_2_chance = 50.0
+loot_3_scene = ""
+loot_3_chance = 100.0
 
 [node name="PlatformDetector" type="RayCast2D" parent="." index="4"]
 position = Vector2( 0, 6 )
@@ -23,5 +36,9 @@ position = Vector2( 15.5, -4 )
 enabled = true
 cast_to = Vector2( 0, 35 )
 collision_mask = 24
+
+[node name="MoveCooldown" type="Timer" parent="." index="8"]
+wait_time = 2.0
+one_shot = true
 
 [editable path="Data/GameHitbox"]

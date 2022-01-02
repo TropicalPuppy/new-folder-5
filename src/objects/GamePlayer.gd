@@ -179,11 +179,16 @@ func attack_state(_delta: float) -> void:
 		if old_anim == "Thrust" or old_anim == "Slash" or old_anim == "AirSlash" or old_anim == "Slash2":
 			continue_combo = true
 			combo_is_thrust = false
+			if is_on_floor():
+				Game.add_swing_xp(0.1)
+			else:
+				Game.add_swing_xp(0.2)
 			return
 	if Input.is_action_just_pressed("thrust"):
 		if old_anim == "Slash" or old_anim == "Slash2":
 			continue_combo = true
 			combo_is_thrust = true
+			Game.add_swing_xp(0.15)
 			return
 
 func check_attack_input():
@@ -199,17 +204,20 @@ func check_attack_input():
 		if is_on_floor():
 			animation_player.play("Slash")
 			state = State.ATTACK
+			Game.add_swing_xp(0.1)
 		elif not air_slash_disabled:
 			animation_player.play("AirSlash")
 			air_slash_disabled = true
 			state = State.ATTACK
 			_velocity.y = 0
+			Game.add_swing_xp(0.2)
 		
 		return
 	
 	if Input.is_action_just_pressed("thrust") and is_on_floor():
 		state = State.ATTACK
 		animation_player.play("Thrust")
+		Game.add_swing_xp(0.15)
 		return
 	
 	if Input.is_action_just_pressed("throw"):
@@ -220,6 +228,7 @@ func check_attack_input():
 		animation_player.play("Throw")
 		if !is_on_floor():
 			_velocity.y = 0
+		Game.add_swing_xp(0.05)
 		
 		return
 
@@ -376,9 +385,11 @@ func throw_sword():
 
 func run():
 	emit_signal("run", position, data.scale.x)
+	Game.add_walk_xp(0.1)
 
 func jump():
 	emit_signal("jump", position, data.scale.x)
+	Game.add_jump_xp(0.1)
 
 func fall():
 	emit_signal("fall", position, data.scale.x)
