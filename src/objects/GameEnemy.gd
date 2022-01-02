@@ -29,6 +29,7 @@ export(String, FILE, "*.tscn,*.scn") var loot_2_scene = ''
 export(float) var loot_2_chance = 50.0
 export(String, FILE, "*.tscn,*.scn") var loot_3_scene = ''
 export(float) var loot_3_chance = 100.0
+export(bool) var show_life_bar = false
 
 var _state = State.IDLE
 var _direction = -1
@@ -42,6 +43,7 @@ func _ready() -> void:
 	$Data/GameHurtbox.set_enemy(self)
 	life_bar.set_max_life(life)
 	life_bar.set_life(life)
+	life_bar.visible = show_life_bar
 
 	_velocity.x = speed.x
 	if initial_direction == Direction.RIGHT:

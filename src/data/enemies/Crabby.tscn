@@ -165,6 +165,7 @@ life = 50
 loot_1_scene = "res://src/data/objects/loot/GreenDiamond.tscn"
 loot_2_scene = "res://src/data/objects/loot/GoldCoin.tscn"
 loot_3_scene = "res://src/data/objects/loot/SilverCoin.tscn"
+show_life_bar = true
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )

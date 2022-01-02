@@ -430,6 +430,7 @@ life = 80
 loot_1_scene = "res://src/data/objects/loot/RedDiamond.tscn"
 loot_2_scene = "res://src/data/objects/loot/GoldCoin.tscn"
 loot_3_scene = "res://src/data/objects/loot/SilverCoin.tscn"
+show_life_bar = true
 bullet = "res://src/data/objects/bullets/Pearl.tscn"
 face_player_automatically = true
 
