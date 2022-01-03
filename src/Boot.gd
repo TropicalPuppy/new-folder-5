@@ -5,4 +5,4 @@ func _ready() -> void:
 	move_to_first_scene()
 
 func move_to_first_scene():
-	Game.push_scene("Title")
+	Game.change_scene("Title")

@@ -66,7 +66,7 @@ func _exit_tree():
 func initialize() -> void:
 	pass
 
-func push_scene(new_scene) -> void:
+func change_scene(new_scene) -> void:
 	_initialized = true
 	current_scene_name = new_scene
 	var scene_path = scenes.get_scene_path(new_scene)
@@ -75,6 +75,7 @@ func push_scene(new_scene) -> void:
 	
 	# warning-ignore:return_value_discarded
 	get_tree().change_scene(scene_path)
+	get_tree().paused = false
 
 func set_player_scene(scene_path) -> void:
 	player_scene = scene_path
@@ -202,3 +203,20 @@ func get_required_xp(for_level):
 	
 func show_damage(damage, position, is_player = false):
 	emit_signal("damage", damage, position, is_player)
+
+func reset():
+	max_life = 100
+	current_life = 100
+	can_double_jump = false
+	money = 0
+	xp = 0
+	next_level_xp = 0
+	walk_xp = 0
+	jump_xp = 0
+	hit_xp = 0
+	swing_xp = 0
+	level = 1
+	has_sword = false
+	
+	update_required_xp()
+	teleport_player("Island1", 23, 700)

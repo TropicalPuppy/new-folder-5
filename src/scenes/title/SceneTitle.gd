@@ -18,8 +18,8 @@ func _physics_process(_delta):
 		start_button.grab_focus()
 
 func _on_StartButton_pressed():
-	Game.teleport_player("Island1", 23, 700)
-	Game.push_scene("Map")
+	Game.reset()
+	Game.change_scene("Map")
 
 func _on_OptionsButton_pressed():
 	start_button.disabled = true

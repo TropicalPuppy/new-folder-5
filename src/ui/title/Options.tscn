@@ -3,7 +3,7 @@
 [ext_resource path="res://src/ui/title/Options.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/SettingsBackground.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/SliderIndicatorFocused.png" type="Texture" id=3]
-[ext_resource path="res://assets/UI/FocusedButton.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/ButtonFocus.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/SliderIndicator.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/BackButton.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/Checked.png" type="Texture" id=7]
@@ -20,7 +20,7 @@ region_rect = Rect2( 0, 0, 12, 12 )
 
 [sub_resource type="StyleBoxTexture" id=2]
 texture = ExtResource( 4 )
-region_rect = Rect2( 0, 0, 14, 14 )
+region_rect = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="StyleBoxTexture" id=3]
 texture = ExtResource( 11 )
@@ -65,12 +65,11 @@ margin_left = 44.0
 margin_top = -4.0
 margin_right = 58.0
 margin_bottom = 10.0
-focus_neighbour_left = NodePath(".")
-focus_neighbour_top = NodePath("../../VolumeSlider")
-focus_neighbour_right = NodePath(".")
+focus_neighbour_left = NodePath("../../BackButton")
+focus_neighbour_top = NodePath("../../BackButton")
 focus_neighbour_bottom = NodePath("../../SFX/CheckButton")
 focus_next = NodePath("../../SFX/CheckButton")
-focus_previous = NodePath("../../VolumeSlider")
+focus_previous = NodePath("../../BackButton")
 custom_icons/off = ExtResource( 8 )
 custom_icons/on = ExtResource( 7 )
 custom_styles/hover = SubResource( 1 )
@@ -99,9 +98,8 @@ margin_left = 44.0
 margin_top = -4.0
 margin_right = 58.0
 margin_bottom = 10.0
-focus_neighbour_left = NodePath(".")
+focus_neighbour_left = NodePath("../../BackButton")
 focus_neighbour_top = NodePath("../../Music/CheckButton")
-focus_neighbour_right = NodePath(".")
 focus_neighbour_bottom = NodePath("../../VolumeSlider")
 focus_next = NodePath("../../VolumeSlider")
 focus_previous = NodePath("../../Music/CheckButton")
@@ -136,8 +134,8 @@ margin_top = 65.5
 margin_right = 77.0
 margin_bottom = 81.5
 focus_neighbour_top = NodePath("../SFX/CheckButton")
-focus_neighbour_bottom = NodePath("../Music/CheckButton")
-focus_next = NodePath("../Music/CheckButton")
+focus_neighbour_bottom = NodePath("../BackButton")
+focus_next = NodePath("../BackButton")
 focus_previous = NodePath("../SFX/CheckButton")
 custom_icons/grabber_highlight = ExtResource( 3 )
 custom_icons/grabber = ExtResource( 5 )
@@ -156,8 +154,14 @@ margin_left = 1.0
 margin_top = 2.0
 margin_right = 15.0
 margin_bottom = 16.0
+focus_neighbour_top = NodePath("../VolumeSlider")
+focus_neighbour_right = NodePath("../Music/CheckButton")
+focus_neighbour_bottom = NodePath("../Music/CheckButton")
+focus_next = NodePath("../Music/CheckButton")
+focus_previous = NodePath("../VolumeSlider")
 texture_normal = ExtResource( 6 )
 texture_pressed = ExtResource( 10 )
+texture_focused = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -1,9 +1,15 @@
 extends Control
 
+onready var music_check = $Music/CheckButton
+onready var sfx_check = $SFX/CheckButton
+onready var volume_slider = $VolumeSlider
+onready var back_button = $BackButton
+
+
 func _ready():
-	$VolumeSlider.value = Settings.master_volume
-	$Music/CheckButton.pressed = Settings.music_enabled
-	$SFX/CheckButton.pressed = Settings.sfx_enabled
+	volume_slider.value = Settings.master_volume
+	music_check.pressed = Settings.music_enabled
+	sfx_check.pressed = Settings.sfx_enabled
 
 func _on_MusicCheckButton_toggled(button_pressed):
 	Settings.music_enabled = button_pressed
@@ -30,7 +36,7 @@ func open():
 
 func show():
 	visible = true
-	$Music/CheckButton.grab_focus()
+	music_check.grab_focus()
 
 func close():
 	visible = false	
@@ -39,4 +45,4 @@ func close():
 	Settings.save_settings()
 
 func set_focus():
-	$Music/CheckButton.grab_focus()
+	music_check.grab_focus()

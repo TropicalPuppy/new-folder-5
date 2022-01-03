@@ -1,20 +1,28 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://assets/UI/Slider.png" type="Texture" id=1]
 [ext_resource path="res://assets/UI/SliderIndicator.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/SettingsBackground.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/small.fnt" type="BitmapFont" id=4]
 [ext_resource path="res://src/ui/map/PauseUI.gd" type="Script" id=5]
-[ext_resource path="res://assets/UI/FocusedButton.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/Unchecked.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/Checked.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/Check.png" type="Texture" id=9]
 [ext_resource path="res://assets/UI/Banner.png" type="Texture" id=10]
+[ext_resource path="res://assets/UI/ExitButton.png" type="Texture" id=11]
 [ext_resource path="res://assets/UI/BackButton.png" type="Texture" id=12]
 [ext_resource path="res://assets/UI/BackButtonPressed.png" type="Texture" id=13]
 [ext_resource path="res://assets/UI/SliderIndicatorFocused.png" type="Texture" id=14]
 [ext_resource path="res://assets/UI/XPBar.png" type="Texture" id=15]
 [ext_resource path="res://assets/UI/XPBarColor.png" type="Texture" id=16]
+[ext_resource path="res://assets/UI/Label.png" type="Texture" id=17]
+[ext_resource path="res://assets/UI/ExitButtonPressed.png" type="Texture" id=18]
+[ext_resource path="res://assets/UI/CloseButtonPressed.png" type="Texture" id=19]
+[ext_resource path="res://assets/UI/CloseButton.png" type="Texture" id=20]
+[ext_resource path="res://assets/UI/ConfirmButtonPressed.png" type="Texture" id=21]
+[ext_resource path="res://assets/UI/ConfirmButton.png" type="Texture" id=22]
+[ext_resource path="res://assets/UI/ExitButtonFocused.png" type="Texture" id=23]
+[ext_resource path="res://assets/UI/ButtonFocus.png" type="Texture" id=24]
 
 [sub_resource type="StyleBoxTexture" id=7]
 content_margin_right = 3.0
@@ -22,8 +30,8 @@ texture = ExtResource( 9 )
 region_rect = Rect2( 0, 0, 12, 12 )
 
 [sub_resource type="StyleBoxTexture" id=8]
-texture = ExtResource( 6 )
-region_rect = Rect2( 0, 0, 14, 14 )
+texture = ExtResource( 24 )
+region_rect = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="StyleBoxTexture" id=4]
 texture = ExtResource( 1 )
@@ -35,8 +43,8 @@ region_rect = Rect2( 0, 0, 58, 6 )
 
 [node name="PauseUI" type="Control"]
 pause_mode = 2
-margin_right = 96.0
-margin_bottom = 132.0
+margin_right = 208.0
+margin_bottom = 156.0
 rect_scale = Vector2( 2, 2 )
 focus_mode = 2
 script = ExtResource( 5 )
@@ -44,123 +52,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="Background" type="TextureRect" parent="."]
+margin_right = 96.0
+margin_bottom = 96.0
 texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Music" type="Label" parent="."]
-margin_left = 18.5
-margin_top = 21.0
-margin_right = 58.5
-margin_bottom = 27.0
-custom_fonts/font = ExtResource( 4 )
-text = "MUSIC"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CheckButton" type="CheckButton" parent="Music"]
-margin_left = 44.0
-margin_top = -4.0
-margin_right = 58.0
-margin_bottom = 10.0
-focus_neighbour_left = NodePath(".")
-focus_neighbour_top = NodePath("../../VolumeSlider")
-focus_neighbour_right = NodePath(".")
-focus_neighbour_bottom = NodePath("../../SFX/CheckButton")
-focus_next = NodePath("../../SFX/CheckButton")
-focus_previous = NodePath("../../VolumeSlider")
-custom_icons/off = ExtResource( 7 )
-custom_icons/on = ExtResource( 8 )
-custom_styles/hover = SubResource( 7 )
-custom_styles/pressed = SubResource( 7 )
-custom_styles/focus = SubResource( 8 )
-custom_styles/hover_pressed = SubResource( 7 )
-custom_styles/normal = SubResource( 7 )
-pressed = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SFX" type="Label" parent="."]
-margin_left = 19.0
-margin_top = 36.0
-margin_right = 59.0
-margin_bottom = 42.0
-custom_fonts/font = ExtResource( 4 )
-text = "SFX"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CheckButton" type="CheckButton" parent="SFX"]
-margin_left = 44.0
-margin_top = -4.0
-margin_right = 58.0
-margin_bottom = 10.0
-focus_neighbour_left = NodePath(".")
-focus_neighbour_top = NodePath("../../Music/CheckButton")
-focus_neighbour_right = NodePath(".")
-focus_neighbour_bottom = NodePath("../../VolumeSlider")
-focus_next = NodePath("../../VolumeSlider")
-focus_previous = NodePath("../../Music/CheckButton")
-custom_icons/off = ExtResource( 7 )
-custom_icons/on = ExtResource( 8 )
-custom_styles/hover = SubResource( 7 )
-custom_styles/pressed = SubResource( 7 )
-custom_styles/focus = SubResource( 8 )
-custom_styles/hover_pressed = SubResource( 7 )
-custom_styles/normal = SubResource( 7 )
-pressed = true
-__meta__ = {
-"_edit_use_anchors_": false,
-"_editor_description_": ""
-}
-
-[node name="Volume" type="Label" parent="."]
-margin_left = 14.0
-margin_top = 56.0
-margin_right = 82.0
-margin_bottom = 62.0
-custom_fonts/font = ExtResource( 4 )
-text = "VOLUME"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VolumeSlider" type="HSlider" parent="."]
-margin_left = 19.0
-margin_top = 65.5
-margin_right = 77.0
-margin_bottom = 81.5
-focus_neighbour_top = NodePath("../SFX/CheckButton")
-focus_neighbour_bottom = NodePath("../Music/CheckButton")
-focus_next = NodePath("../Music/CheckButton")
-focus_previous = NodePath("../SFX/CheckButton")
-custom_icons/grabber_highlight = ExtResource( 14 )
-custom_icons/grabber = ExtResource( 2 )
-custom_styles/slider = SubResource( 4 )
-custom_styles/grabber_area_highlight = SubResource( 6 )
-custom_styles/grabber_area = SubResource( 5 )
-max_value = 200.0
-step = 5.0
-value = 100.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BackButton" type="TextureButton" parent="."]
-margin_left = 1.0
-margin_top = 2.0
-margin_right = 15.0
-margin_bottom = 16.0
-texture_normal = ExtResource( 12 )
-texture_pressed = ExtResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -217,7 +112,225 @@ margin_right = 40.0
 margin_bottom = 40.0
 texture = ExtResource( 10 )
 
-[connection signal="toggled" from="Music/CheckButton" to="." method="_on_MusicCheckButton_toggled"]
-[connection signal="toggled" from="SFX/CheckButton" to="." method="_on_SFXCheckButton_toggled"]
-[connection signal="value_changed" from="VolumeSlider" to="." method="_on_VolumeSlider_value_changed"]
-[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
+[node name="ExitButton" type="TextureButton" parent="."]
+margin_left = 110.0
+margin_top = 122.0
+margin_right = 154.0
+margin_bottom = 138.0
+focus_neighbour_left = NodePath("../Settings/Music/CheckButton")
+focus_neighbour_top = NodePath("../Settings/VolumeSlider")
+focus_neighbour_bottom = NodePath("../Settings/BackButton")
+focus_next = NodePath("../Settings/BackButton")
+focus_previous = NodePath("../Settings/VolumeSlider")
+keep_pressed_outside = true
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 18 )
+texture_focused = ExtResource( 23 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ExitButton"]
+margin_right = 44.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 4 )
+text = "EXIT"
+align = 1
+valign = 1
+
+[node name="Settings" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VolumeBackground" type="TextureRect" parent="Settings"]
+margin_left = 13.0
+margin_top = 52.0
+margin_right = 83.0
+margin_bottom = 66.0
+texture = ExtResource( 17 )
+
+[node name="Music" type="Label" parent="Settings"]
+margin_left = 19.0
+margin_top = 21.0
+margin_right = 59.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 4 )
+text = "MUSIC"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckButton" type="CheckButton" parent="Settings/Music"]
+margin_left = 44.0
+margin_top = -4.0
+margin_right = 58.0
+margin_bottom = 10.0
+focus_neighbour_left = NodePath("../../BackButton")
+focus_neighbour_top = NodePath("../../BackButton")
+focus_neighbour_right = NodePath("../../../ExitButton")
+focus_neighbour_bottom = NodePath("../../SFX/CheckButton")
+focus_next = NodePath("../../SFX/CheckButton")
+focus_previous = NodePath("../../BackButton")
+custom_icons/off = ExtResource( 7 )
+custom_icons/on = ExtResource( 8 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 7 )
+custom_styles/focus = SubResource( 8 )
+custom_styles/hover_pressed = SubResource( 7 )
+custom_styles/normal = SubResource( 7 )
+pressed = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SFX" type="Label" parent="Settings"]
+margin_left = 19.0
+margin_top = 36.0
+margin_right = 59.0
+margin_bottom = 42.0
+custom_fonts/font = ExtResource( 4 )
+text = "SFX"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckButton" type="CheckButton" parent="Settings/SFX"]
+margin_left = 44.0
+margin_top = -4.0
+margin_right = 58.0
+margin_bottom = 10.0
+focus_neighbour_left = NodePath("../../BackButton")
+focus_neighbour_top = NodePath("../../Music/CheckButton")
+focus_neighbour_right = NodePath("../../../ExitButton")
+focus_neighbour_bottom = NodePath("../../VolumeSlider")
+focus_next = NodePath("../../VolumeSlider")
+focus_previous = NodePath("../../Music/CheckButton")
+custom_icons/off = ExtResource( 7 )
+custom_icons/on = ExtResource( 8 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 7 )
+custom_styles/focus = SubResource( 8 )
+custom_styles/hover_pressed = SubResource( 7 )
+custom_styles/normal = SubResource( 7 )
+pressed = true
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Volume" type="Label" parent="Settings"]
+margin_left = 14.0
+margin_top = 56.0
+margin_right = 82.0
+margin_bottom = 62.0
+custom_fonts/font = ExtResource( 4 )
+text = "VOLUME"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VolumeSlider" type="HSlider" parent="Settings"]
+margin_left = 19.0
+margin_top = 65.5
+margin_right = 77.0
+margin_bottom = 81.5
+focus_neighbour_top = NodePath("../SFX/CheckButton")
+focus_neighbour_bottom = NodePath("../../ExitButton")
+focus_next = NodePath("../../ExitButton")
+focus_previous = NodePath("../SFX/CheckButton")
+custom_icons/grabber_highlight = ExtResource( 14 )
+custom_icons/grabber = ExtResource( 2 )
+custom_styles/slider = SubResource( 4 )
+custom_styles/grabber_area_highlight = SubResource( 6 )
+custom_styles/grabber_area = SubResource( 5 )
+max_value = 200.0
+step = 5.0
+value = 100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackButton" type="TextureButton" parent="Settings"]
+margin_left = 1.0
+margin_top = 2.0
+margin_right = 15.0
+margin_bottom = 16.0
+focus_neighbour_top = NodePath("../../ExitButton")
+focus_neighbour_right = NodePath("../Music/CheckButton")
+focus_neighbour_bottom = NodePath("../Music/CheckButton")
+focus_next = NodePath("../Music/CheckButton")
+focus_previous = NodePath("../../ExitButton")
+texture_normal = ExtResource( 12 )
+texture_pressed = ExtResource( 13 )
+texture_focused = ExtResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exiting" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConfirmButton" type="TextureButton" parent="Exiting"]
+margin_left = 13.0
+margin_top = 52.0
+margin_right = 27.0
+margin_bottom = 66.0
+focus_neighbour_left = NodePath("../CancelButton")
+focus_neighbour_top = NodePath("../CancelButton")
+focus_neighbour_right = NodePath("../CancelButton")
+focus_neighbour_bottom = NodePath("../CancelButton")
+focus_next = NodePath("../CancelButton")
+focus_previous = NodePath("../CancelButton")
+texture_normal = ExtResource( 22 )
+texture_pressed = ExtResource( 21 )
+texture_focused = ExtResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CancelButton" type="TextureButton" parent="Exiting"]
+margin_left = 69.0
+margin_top = 52.0
+margin_right = 83.0
+margin_bottom = 66.0
+focus_neighbour_left = NodePath("../ConfirmButton")
+focus_neighbour_top = NodePath("../ConfirmButton")
+focus_neighbour_right = NodePath("../ConfirmButton")
+focus_neighbour_bottom = NodePath("../ConfirmButton")
+focus_next = NodePath("../ConfirmButton")
+focus_previous = NodePath("../ConfirmButton")
+texture_normal = ExtResource( 20 )
+texture_pressed = ExtResource( 19 )
+texture_focused = ExtResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Exiting"]
+margin_left = 15.0
+margin_top = 17.0
+margin_right = 81.0
+margin_bottom = 47.0
+custom_fonts/font = ExtResource( 4 )
+text = "EXIT TO TITLE?"
+align = 1
+valign = 1
+autowrap = true
+uppercase = true
+
+[connection signal="pressed" from="ExitButton" to="." method="_on_ExitButton_pressed"]
+[connection signal="toggled" from="Settings/Music/CheckButton" to="." method="_on_MusicCheckButton_toggled"]
+[connection signal="toggled" from="Settings/SFX/CheckButton" to="." method="_on_SFXCheckButton_toggled"]
+[connection signal="value_changed" from="Settings/VolumeSlider" to="." method="_on_VolumeSlider_value_changed"]
+[connection signal="pressed" from="Settings/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="Exiting/ConfirmButton" to="." method="_on_ConfirmButton_pressed"]
+[connection signal="pressed" from="Exiting/CancelButton" to="." method="_on_CancelButton_pressed"]

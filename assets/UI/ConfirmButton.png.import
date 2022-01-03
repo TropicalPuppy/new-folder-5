@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FocusedButton.png-c22bfd5bf600d6b120e0c5791eac1a78.stex"
+path="res://.import/ConfirmButton.png-b01b49d66adc3e21e14d4ed2da32e222.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/FocusedButton.png"
-dest_files=[ "res://.import/FocusedButton.png-c22bfd5bf600d6b120e0c5791eac1a78.stex" ]
+source_file="res://assets/UI/ConfirmButton.png"
+dest_files=[ "res://.import/ConfirmButton.png-b01b49d66adc3e21e14d4ed2da32e222.stex" ]
 
 [params]
 
