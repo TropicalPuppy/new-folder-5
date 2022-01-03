@@ -1,56 +1,130 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://resources/tilesets/island.tres" type="TileSet" id=1]
-[ext_resource path="res://src/data/sprites/PalmTreeCenter.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/data/sprites/PalmPiece.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/data/sprites/Water.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/data/sprites/SailingShip.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/data/maps/Title.gd" type="Script" id=3]
+[ext_resource path="res://assets/bgm/2 - Mellow Beginnings.mp3" type="AudioStream" id=4]
 [ext_resource path="res://src/objects/GameMap.tscn" type="PackedScene" id=5]
-[ext_resource path="res://src/data/sprites/PalmTreeLeft.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/data/platforms/TreePlatform.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/helpers/AudioFade.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/data/maps/IslandBackground.tscn" type="PackedScene" id=9]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Move"
+length = 60.0
+loop = true
+step = 30.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 60 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -16, 295 ), Vector2( 704, 295 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 60 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "reset_ship"
+} ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -16, 295 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
 
 [node name="Title" instance=ExtResource( 5 )]
 position = Vector2( -23, -1 )
 collision_layer = 16
 collision_mask = 0
+script = ExtResource( 3 )
 
-[node name="BackgroundTrees" type="Node2D" parent="." index="0"]
-z_index = -1
-
-[node name="PalmTreeLeft" parent="BackgroundTrees" index="0" instance=ExtResource( 6 )]
-position = Vector2( 253, 240 )
-
-[node name="PalmTreeCenter" parent="BackgroundTrees" index="1" instance=ExtResource( 2 )]
-position = Vector2( 70, 196 )
-
-[node name="TileMap" type="TileMap" parent="." index="1"]
-tile_set = ExtResource( 1 )
-cell_size = Vector2( 32, 32 )
-collision_use_parent = true
-format = 1
-tile_data = PoolIntArray( 393215, 0, 0, 327680, 0, 1, 327681, 0, 2, 458751, 0, 65536, 393216, 0, 65537, 393217, 0, 65538, 524287, 0, 65536, 458752, 0, 65537, 458753, 0, 65538, 589823, 0, 65536, 524288, 0, 65537, 524289, 0, 65542, 524290, 0, 1, 524291, 0, 1, 524292, 0, 1, 524293, 0, 1, 524294, 0, 1, 524295, 0, 2, 655359, 0, 65536, 589824, 0, 65537, 589825, 0, 65537, 589826, 0, 65537, 589827, 0, 65537, 589828, 0, 65537, 589829, 0, 65537, 589830, 0, 65537, 589831, 0, 65538, 720895, 0, 65536, 655360, 0, 65537, 655361, 0, 65537, 655362, 0, 65537, 655363, 0, 65537, 655364, 0, 65537, 655365, 0, 65537, 655366, 0, 65537, 655367, 0, 65542, 655368, 0, 1, 655369, 0, 1, 655370, 0, 2, 786431, 0, 65536, 720896, 0, 65537, 720897, 0, 65537, 720898, 0, 65537, 720899, 0, 65537, 720900, 0, 65537, 720901, 0, 65537, 720902, 0, 65537, 720903, 0, 65537, 720904, 0, 65537, 720905, 0, 65537, 720906, 0, 65538, 851967, 0, 131072, 786432, 0, 131073, 786433, 0, 131073, 786434, 0, 131073, 786435, 0, 131073, 786436, 0, 131073, 786437, 0, 131073, 786438, 0, 131073, 786439, 0, 131073, 786440, 0, 131073, 786441, 0, 131073, 786442, 0, 131074 )
-
-[node name="StaticPlatforms" type="Node2D" parent="." index="2"]
-
-[node name="Trees" type="Node2D" parent="." index="3"]
-
-[node name="PalmTop" parent="Trees" index="0" instance=ExtResource( 7 )]
-position = Vector2( 46, 114 )
-
-[node name="PalmPiece" parent="Trees/PalmTop" index="3" instance=ExtResource( 3 )]
-position = Vector2( -15, 16 )
-
-[node name="PalmTop6" parent="Trees" index="1" instance=ExtResource( 7 )]
-position = Vector2( 229, 209 )
-
-[node name="PalmPiece" parent="Trees/PalmTop6" index="3" instance=ExtResource( 3 )]
-position = Vector2( -15, 16 )
-
-[node name="BottomRightLimit" parent="." index="5"]
+[node name="BottomRightLimit" parent="." index="1"]
 position = Vector2( 640, 360 )
 
-[node name="BackgroundHolder" type="CanvasLayer" parent="." index="6"]
+[node name="BackgroundHolder" type="CanvasLayer" parent="." index="2"]
 layer = -10
 scale = Vector2( 2, 2 )
 transform = Transform2D( 2, 0, 0, 2, 0, 0 )
 
 [node name="IslandBackground" parent="BackgroundHolder" index="0" instance=ExtResource( 9 )]
+
+[node name="WaterFiller" parent="BackgroundHolder/IslandBackground" index="1"]
+visible = false
+
+[node name="CenterReflection" parent="BackgroundHolder/IslandBackground" index="3"]
+visible = false
+
+[node name="SailingShip" parent="." index="3" instance=ExtResource( 2 )]
+position = Vector2( -16, 295 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="SailingShip" index="2"]
+autoplay = "Move"
+anims/Move = SubResource( 1 )
+anims/RESET = SubResource( 2 )
+
+[node name="Water" type="Node2D" parent="." index="4"]
+
+[node name="Water" parent="Water" index="0" instance=ExtResource( 1 )]
+position = Vector2( 71, 313 )
+
+[node name="Water2" parent="Water" index="1" instance=ExtResource( 1 )]
+position = Vector2( 167, 313 )
+
+[node name="Water3" parent="Water" index="2" instance=ExtResource( 1 )]
+position = Vector2( 263, 313 )
+
+[node name="Water4" parent="Water" index="3" instance=ExtResource( 1 )]
+position = Vector2( 359, 313 )
+
+[node name="Water5" parent="Water" index="4" instance=ExtResource( 1 )]
+position = Vector2( 455, 313 )
+
+[node name="Water6" parent="Water" index="5" instance=ExtResource( 1 )]
+position = Vector2( 551, 313 )
+
+[node name="Water7" parent="Water" index="6" instance=ExtResource( 1 )]
+position = Vector2( 647, 313 )
+
+[node name="AudioStreamPlayer" parent="." index="5" instance=ExtResource( 6 )]
+pause_mode = 2
+stream = ExtResource( 4 )
+volume_db = -10.0
+mix_target = 2
+fade_in_automatically = false
+
+[editable path="BackgroundHolder/IslandBackground"]

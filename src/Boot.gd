@@ -5,5 +5,4 @@ func _ready() -> void:
 	move_to_first_scene()
 
 func move_to_first_scene():
-	Game.teleport_player("Island1", 23, 700)
-	Game.push_scene("Map")
+	Game.push_scene("Title")

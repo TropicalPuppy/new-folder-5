@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://assets/backgrounds/IslandSky.png" type="Texture" id=1]
 [ext_resource path="res://assets/backgrounds/WaterReflectBig.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/backgrounds/SmallCloud1.png" type="Texture" id=6]
 [ext_resource path="res://assets/backgrounds/SmallCloud2.png" type="Texture" id=7]
 [ext_resource path="res://assets/backgrounds/SmallCloud3.png" type="Texture" id=8]
+[ext_resource path="res://assets/backgrounds/IslandWater.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -179,6 +180,12 @@ script = ExtResource( 5 )
 [node name="SkyFiller" type="Sprite" parent="."]
 scale = Vector2( 10, 4 )
 texture = ExtResource( 1 )
+centered = false
+
+[node name="WaterFiller" type="Sprite" parent="."]
+position = Vector2( 0, 180 )
+scale = Vector2( 10, 1 )
+texture = ExtResource( 9 )
 centered = false
 
 [node name="BackgroundImage" type="Sprite" parent="."]

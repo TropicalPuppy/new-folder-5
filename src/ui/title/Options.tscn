@@ -1,0 +1,168 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://src/ui/title/Options.gd" type="Script" id=1]
+[ext_resource path="res://assets/UI/SettingsBackground.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI/SliderIndicatorFocused.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/FocusedButton.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/SliderIndicator.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/BackButton.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/Checked.png" type="Texture" id=7]
+[ext_resource path="res://assets/UI/Unchecked.png" type="Texture" id=8]
+[ext_resource path="res://assets/UI/Check.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/BackButtonPressed.png" type="Texture" id=10]
+[ext_resource path="res://assets/UI/Slider.png" type="Texture" id=11]
+[ext_resource path="res://assets/fonts/small.fnt" type="BitmapFont" id=12]
+
+[sub_resource type="StyleBoxTexture" id=1]
+content_margin_right = 3.0
+texture = ExtResource( 9 )
+region_rect = Rect2( 0, 0, 12, 12 )
+
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 14, 14 )
+
+[sub_resource type="StyleBoxTexture" id=3]
+texture = ExtResource( 11 )
+region_rect = Rect2( 0, 0, 58, 6 )
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[node name="Options" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -544.0
+margin_bottom = -264.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Music" type="Label" parent="."]
+margin_left = 18.5
+margin_top = 21.0
+margin_right = 58.5
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 12 )
+text = "MUSIC"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckButton" type="CheckButton" parent="Music"]
+margin_left = 44.0
+margin_top = -4.0
+margin_right = 58.0
+margin_bottom = 10.0
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath("../../VolumeSlider")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath("../../SFX/CheckButton")
+focus_next = NodePath("../../SFX/CheckButton")
+focus_previous = NodePath("../../VolumeSlider")
+custom_icons/off = ExtResource( 8 )
+custom_icons/on = ExtResource( 7 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/hover_pressed = SubResource( 1 )
+custom_styles/normal = SubResource( 1 )
+pressed = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SFX" type="Label" parent="."]
+margin_left = 19.0
+margin_top = 36.0
+margin_right = 59.0
+margin_bottom = 42.0
+custom_fonts/font = ExtResource( 12 )
+text = "SFX"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckButton" type="CheckButton" parent="SFX"]
+margin_left = 44.0
+margin_top = -4.0
+margin_right = 58.0
+margin_bottom = 10.0
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath("../../Music/CheckButton")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath("../../VolumeSlider")
+focus_next = NodePath("../../VolumeSlider")
+focus_previous = NodePath("../../Music/CheckButton")
+custom_icons/off = ExtResource( 8 )
+custom_icons/on = ExtResource( 7 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/hover_pressed = SubResource( 1 )
+custom_styles/normal = SubResource( 1 )
+pressed = true
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Volume" type="Label" parent="."]
+margin_left = 14.0
+margin_top = 56.0
+margin_right = 82.0
+margin_bottom = 62.0
+custom_fonts/font = ExtResource( 12 )
+text = "VOLUME"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VolumeSlider" type="HSlider" parent="."]
+margin_left = 19.0
+margin_top = 65.5
+margin_right = 77.0
+margin_bottom = 81.5
+focus_neighbour_top = NodePath("../SFX/CheckButton")
+focus_neighbour_bottom = NodePath("../Music/CheckButton")
+focus_next = NodePath("../Music/CheckButton")
+focus_previous = NodePath("../SFX/CheckButton")
+custom_icons/grabber_highlight = ExtResource( 3 )
+custom_icons/grabber = ExtResource( 5 )
+custom_styles/slider = SubResource( 3 )
+custom_styles/grabber_area_highlight = SubResource( 4 )
+custom_styles/grabber_area = SubResource( 5 )
+max_value = 200.0
+step = 5.0
+value = 100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackButton" type="TextureButton" parent="."]
+margin_left = 1.0
+margin_top = 2.0
+margin_right = 15.0
+margin_bottom = 16.0
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="toggled" from="Music/CheckButton" to="." method="_on_MusicCheckButton_toggled"]
+[connection signal="toggled" from="SFX/CheckButton" to="." method="_on_SFXCheckButton_toggled"]
+[connection signal="value_changed" from="VolumeSlider" to="." method="_on_VolumeSlider_value_changed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]

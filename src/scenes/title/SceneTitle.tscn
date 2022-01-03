@@ -1,3 +1,91 @@
-[gd_scene format=2]
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/fonts/text.fnt" type="BitmapFont" id=1]
+[ext_resource path="res://src/data/maps/Title.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/scenes/title/SceneTitle.gd" type="Script" id=3]
+[ext_resource path="res://src/ui/title/Options.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/UI/Banner.png" type="Texture" id=5]
+[ext_resource path="res://assets/logos/new_folder_5.png" type="Texture" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 96, 36 )
+expand_margin_top = 4.0
+expand_margin_bottom = 6.0
 
 [node name="SceneTitle" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Title" parent="." instance=ExtResource( 2 )]
+pause_mode = 2
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="List" type="VBoxContainer" parent="."]
+margin_left = 506.0
+margin_top = 32.0
+margin_right = 602.0
+margin_bottom = 103.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="List"]
+margin_right = 96.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 1 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/focus = SubResource( 1 )
+text = "START"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsButton" type="Button" parent="List"]
+margin_top = 21.0
+margin_right = 96.0
+margin_bottom = 38.0
+custom_fonts/font = ExtResource( 1 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/focus = SubResource( 1 )
+text = "OPTIONS"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExitButton" type="Button" parent="List"]
+margin_top = 42.0
+margin_right = 96.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 1 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/focus = SubResource( 1 )
+text = "EXIT"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" parent="." instance=ExtResource( 4 )]
+margin_left = 482.0
+margin_top = 132.0
+margin_right = 482.0
+margin_bottom = 132.0
+rect_scale = Vector2( 1.5, 1.5 )
+
+[connection signal="focus_entered" from="List/StartButton" to="." method="_on_StartButton_focus_entered"]
+[connection signal="mouse_entered" from="List/StartButton" to="." method="_on_StartButton_mouse_entered"]
+[connection signal="pressed" from="List/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="focus_entered" from="List/OptionsButton" to="." method="_on_OptionsButton_focus_entered"]
+[connection signal="mouse_entered" from="List/OptionsButton" to="." method="_on_OptionsButton_mouse_entered"]
+[connection signal="pressed" from="List/OptionsButton" to="." method="_on_OptionsButton_pressed"]
+[connection signal="focus_entered" from="List/ExitButton" to="." method="_on_ExitButton_focus_entered"]
+[connection signal="mouse_entered" from="List/ExitButton" to="." method="_on_ExitButton_mouse_entered"]
+[connection signal="pressed" from="List/ExitButton" to="." method="_on_ExitButton_pressed"]

@@ -192,47 +192,38 @@ anims/move = SubResource( 2 )
 
 [node name="Crabby" parent="Enemies" index="0" instance=ExtResource( 6 )]
 position = Vector2( 336, 467 )
-collision_layer = 2
 collision_mask = 24
 
 [node name="Crabby3" parent="Enemies" index="1" instance=ExtResource( 6 )]
 position = Vector2( 1606, 660 )
-collision_layer = 2
 collision_mask = 24
 
 [node name="Crabby2" parent="Enemies" index="2" instance=ExtResource( 6 )]
 position = Vector2( 1119, 691 )
-collision_layer = 2
 collision_mask = 24
 
 [node name="Crabby4" parent="Enemies" index="3" instance=ExtResource( 6 )]
 position = Vector2( 272, 692 )
-collision_layer = 2
 collision_mask = 24
 
 [node name="Crabby5" parent="Enemies" index="4" instance=ExtResource( 6 )]
 position = Vector2( 2149, 692 )
-collision_layer = 2
 collision_mask = 24
 
 [node name="Crabby6" parent="Enemies" index="5" instance=ExtResource( 6 )]
 position = Vector2( 2279, 692 )
-collision_layer = 2
 collision_mask = 24
 
 [node name="Crabby7" parent="Enemies" index="6" instance=ExtResource( 6 )]
 position = Vector2( 2470, 692 )
-collision_layer = 2
 collision_mask = 24
 
 [node name="Crabby8" parent="Enemies" index="7" instance=ExtResource( 6 )]
 position = Vector2( 2706, 692 )
-collision_layer = 2
 collision_mask = 24
 
 [node name="Crabby9" parent="Enemies" index="8" instance=ExtResource( 6 )]
 position = Vector2( 2910, 692 )
-collision_layer = 2
 collision_mask = 24
 
 [node name="Spike2" parent="Enemies" index="9" instance=ExtResource( 27 )]
