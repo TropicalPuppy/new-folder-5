@@ -21,18 +21,37 @@ func set_sfx_enabled(value):
 func save_settings():
 	var file = File.new()
 	file.open(settings_file, File.WRITE)
-	file.store_var(master_volume)
-	file.store_var(music_enabled)
-	file.store_var(sfx_enabled)
+	file.store_var(make_settings())
 	file.close()
+	
+func make_settings():
+	return {
+		"version": 1,
+		"master_volume": self.master_volume,
+		"music_enabled": self.music_enabled,
+		"sfx_enabled": self.sfx_enabled
+	}
+
+func apply_settings(data):
+	self.master_volume = data.master_volume
+	self.music_enabled = data.music_enabled
+	self.sfx_enabled = data.sfx_enabled
 
 func load_settings():
 	var file = File.new()
 	if file.file_exists(settings_file):
 		file.open(settings_file, File.READ)
-		self.master_volume = file.get_var()
-		self.music_enabled = file.get_var()
-		self.sfx_enabled = file.get_var()
+		
+		var data = file.get_var()
+		print(data)
+		if data is Dictionary:
+			apply_settings(data)
+		elif data is int:
+			# Old format
+			self.master_volume = data
+			self.music_enabled = file.get_var()
+			self.sfx_enabled = file.get_var()
+		
 		file.close()
 
 func _ready():
