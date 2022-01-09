@@ -50,12 +50,7 @@ func update_money():
 	$Money/Label.text = String(int(money_display))
 
 func _ready():
-	max_life_display = Game.max_life
-	life_display = Game.current_life
-	money_display = Game.money
-	self.max_life = Game.max_life
-	self.life = Game.current_life
-	self.money = Game.money
+	update_all_data()
 	
 	# warning-ignore:return_value_discarded
 	Game.connect("life_changed", self, "set_life")
@@ -66,6 +61,10 @@ func _ready():
 
 	# warning-ignore:return_value_discarded
 	Game.connect("level_up", self, "level_up")
+	
+	# warning-ignore:return_value_discarded
+	Game.connect("data_change", self, "update_all_data")
+	
 
 func _physics_process(_delta):
 	if max_life_display != max_life or life_display != life:
@@ -75,3 +74,11 @@ func _physics_process(_delta):
 
 func level_up():
 	$LevelUp/AnimationPlayer.play("Animate")
+
+func update_all_data():
+	max_life_display = Game.max_life
+	life_display = Game.current_life
+	money_display = Game.money
+	self.max_life = Game.max_life
+	self.life = Game.current_life
+	self.money = Game.money

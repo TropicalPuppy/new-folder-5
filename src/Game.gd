@@ -17,6 +17,8 @@ signal xp_changed
 signal level_up
 signal call_menu
 signal damage
+signal data_change
+signal save_state
 
 var player_scene = null setget set_player_scene
 #var player = null setget set_player
@@ -39,6 +41,7 @@ var hit_xp = 0
 var swing_xp = 0
 var level = 1
 var has_sword = false
+var map_state_to_load = null setget set_nothing
 
 func set_max_life(value):
 	max_life = max(1, value)
@@ -217,6 +220,49 @@ func reset():
 	swing_xp = 0
 	level = 1
 	has_sword = false
+	map_state_to_load = null
 	
 	update_required_xp()
+	emit_signal("data_change")
 	teleport_player("Island1", 23, 700)
+
+func save_checkpoint():
+	var state = SaveState.new()
+
+	state.max_life = max_life
+	state.current_life = current_life
+	state.can_double_jump = can_double_jump
+	state.money = money
+	state.xp = xp
+	state.walk_xp = walk_xp
+	state.jump_xp = jump_xp
+	state.hit_xp = hit_xp
+	state.swing_xp = swing_xp
+	state.level = level
+	state.has_sword = has_sword
+	
+	emit_signal("save_state", state)
+
+	
+	return state
+
+func restore_checkpoint(state):
+	max_life = state.max_life
+	current_life = state.current_life
+	money = state.money
+	can_double_jump = state.can_double_jump
+	xp = state.xp
+	walk_xp = state.walk_xp
+	jump_xp = state.jump_xp
+	hit_xp = state.hit_xp
+	swing_xp = state.swing_xp
+	level = state.level
+	has_sword = state.has_sword
+
+	update_required_xp()
+	map_state_to_load = state.map
+	emit_signal("data_change")
+	teleport_player("Island1", 23, 700)
+
+func report_map_loaded(_map_name):
+	map_state_to_load = null

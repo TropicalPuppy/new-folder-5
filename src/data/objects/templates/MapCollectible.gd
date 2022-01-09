@@ -10,6 +10,7 @@ signal collected
 onready var animation_player = $AnimationPlayer
 
 var CollectSFX = null
+var was_collected = false
 
 func _ready():
 	if collect_sfx != '':
@@ -19,6 +20,7 @@ func _on_MapCollectible_body_entered(body):
 	if not body is GamePlayer:
 		return
 	
+	was_collected = true
 	emit_signal("collected")
 	if item_id != '':
 		Game.collect_item(item_id)
@@ -31,7 +33,12 @@ func _on_MapCollectible_body_entered(body):
 	else:
 		call_deferred("queue_free")
 
-
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "Destroy":
 		call_deferred("queue_free")
+
+func is_destroying():
+	if animation_player.is_playing() and animation_player.current_animation == "Destroy":
+		return true
+	
+	return false

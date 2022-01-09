@@ -73,17 +73,21 @@ func load_player() -> void:
 	y_sort.add_child(game_player)
 	
 func update_map() -> void:
-	load_map(Game.map_name)
-
-func load_map(map_name) -> void:
-	var map_path = Game.maps.get_scene_path(map_name)
-	var map_class = load(map_path)
-	var map_instance = map_class.instance()
-
+	call_deferred("load_map", Game.map_name)
+	
+func unload_map():
 	while map_holder.get_child_count() > 0:
 		var old_map = map_holder.get_child(0)
 		map_holder.remove_child(old_map)
-		old_map.queue_free()
+		old_map.call_deferred("queue_free")
+	
+
+func load_map(map_name) -> void:
+	unload_map()
+
+	var map_path = Game.maps.get_scene_path(map_name)
+	var map_class = load(map_path)
+	var map_instance = map_class.instance()
 	
 	map_holder.add_child(map_instance)
 	
@@ -91,6 +95,14 @@ func load_map(map_name) -> void:
 	camera.limit_top = map_instance.get_top()
 	camera.limit_right = map_instance.get_right()
 	camera.limit_bottom = map_instance.get_bottom()
+
+	# warning-ignore:return_value_discarded
+	Game.connect("save_state", map_instance, "save_state")
+	
+	if Game.map_state_to_load != null:
+		map_instance.apply_map_state(Game.map_state_to_load)
+
+	Game.report_map_loaded(map_name)
 
 func initialize():
 	if initialized:
