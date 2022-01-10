@@ -24,3 +24,4 @@ Sound Effects:
  - https://pixabay.com/sound-effects/health-pickup-6860/
  - https://pixabay.com/sound-effects/short-success-sound-glockenspiel-treasure-video-game-6346/
  - https://pixabay.com/sound-effects/level-win-6416/
+ - https://pixabay.com/sound-effects/notification-sound-7062/

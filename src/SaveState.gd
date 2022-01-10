@@ -15,3 +15,4 @@ var has_sword = false
 var x = 0
 var y = 0
 var map = null
+var position = null

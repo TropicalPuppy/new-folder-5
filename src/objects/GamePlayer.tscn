@@ -918,7 +918,7 @@ speed = Vector2( 120, 250 )
 texture = ExtResource( 2 )
 hframes = 6
 vframes = 8
-frame = 33
+frame = 22
 
 [node name="Attacks" type="Node2D" parent="SpriteHolder/Sprite"]
 

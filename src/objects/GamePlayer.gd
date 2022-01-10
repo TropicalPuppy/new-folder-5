@@ -14,6 +14,7 @@ onready var throw_cooldown = $ThrowCooldown
 onready var thrust_cooldown = $ThrustCooldown
 onready var back_detector = $Data/BackDetector
 onready var front_detector = $Data/FrontDetector
+onready var blink_animation = $BlinkAnimationPlayer
 
 const swordLess = preload("res://assets/player/Captain.png")
 const swordFull = preload("res://assets/player/CaptainSword.png")
@@ -69,7 +70,7 @@ func update_player_position():
 	position.y = Game.player_y
 
 func is_invincible():
-	if $BlinkAnimationPlayer.is_playing() and $BlinkAnimationPlayer.current_animation == "Start":
+	if blink_animation.is_playing() and blink_animation.current_animation == "Start":
 		return true
 	if state == State.HIT:
 		return true
@@ -322,11 +323,11 @@ func get_sprite():
 	return sprite_holder.get_child(0)
 
 func _on_GameHurtbox_invincibility_ended() -> void:
-	$BlinkAnimationPlayer.play("Stop")
+	blink_animation.play("Stop")
 	pass
 
 func _on_GameHurtbox_invincibility_started() -> void:
-	$BlinkAnimationPlayer.play("Start")
+	blink_animation.play("Start")
 	pass
 
 func _on_GameHurtbox_area_entered(area: Area2D) -> void:
@@ -479,4 +480,6 @@ func reset():
 	hurtbox.reset()
 	disable_all_hitboxes()
 	set_collision_layer_bit(0, true)
+	blink_animation.play("Stop")
+	
 	enable_gravity = true
