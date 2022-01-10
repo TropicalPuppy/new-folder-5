@@ -21,6 +21,7 @@ const swordFull = preload("res://assets/player/CaptainSword.png")
 signal run
 signal jump
 signal fall
+signal game_over
 
 # Y speed: 200 - 450
 
@@ -28,13 +29,12 @@ enum State {
 	MOVE,
 	HIT,
 	ATTACK,
-	WAITING,
 	DEAD
 }
 
 const FLOOR_DETECT_DISTANCE = 5.0
 
-var state = State.MOVE
+var state = State.MOVE setget set_state
 var show_sword = false setget set_show_sword
 var air_slash_disabled = false
 var continue_combo = false
@@ -47,9 +47,18 @@ var last_ground_direction = 1
 
 func _ready() -> void:
 	set_show_sword(false)
+	reset()
 	
 	# warning-ignore:return_value_discarded
 	Game.connect("update_player_position", self, "update_player_position")
+	# warning-ignore:return_value_discarded
+	Game.connect("player_died", self, "die")
+
+func set_state(value):
+	if state == State.DEAD:
+		return
+	
+	state = value
 
 func get_width():
 	var sprite = get_sprite()
@@ -67,8 +76,7 @@ func is_invincible():
 	return false
 
 func update_invincibility_passability():
-	set_collision_mask_bit(7, is_invincible())
-	pass
+	set_collision_mask_bit(7, is_invincible() or state == State.DEAD)
 
 func set_show_sword(value):
 	show_sword = value
@@ -84,9 +92,6 @@ func disable_all_hitboxes():
 	$Data/Hitboxes/ThrustHitbox/CollisionShape2D.disabled = true
 
 func _physics_process(delta: float) -> void:
-#	if Game.text.active:
-#		return
-
 	update_sprite()
 	update_invincibility_passability()
 	update_speed()
@@ -104,7 +109,7 @@ func _physics_process(delta: float) -> void:
 		State.ATTACK:
 			attack_state(delta)
 		State.DEAD:
-			pass
+			dead_state(delta)
 
 func update_speed():
 	speed.x = 118 + Game.level * 2
@@ -170,9 +175,15 @@ func move_state(_delta: float) -> void:
 func hit_state(_delta: float) -> void:
 	apply_velocity(current_knockback, true)
 
+func dead_state(_delta: float) -> void:
+	apply_velocity(current_knockback, true)
+	
+	if Game.current_life > 0:
+		reset()
+
 func attack_state(_delta: float) -> void:
 	if !animation_player.is_playing():
-		state = State.MOVE
+		self.state = State.MOVE
 		return
 		
 	apply_velocity(Vector2.ZERO, true)
@@ -211,19 +222,19 @@ func check_attack_input():
 	if Input.is_action_just_pressed("slash"):
 		if is_on_floor():
 			animation_player.play("Slash")
-			state = State.ATTACK
+			self.state = State.ATTACK
 			Game.add_swing_xp(0.1)
 		elif not air_slash_disabled:
 			animation_player.play("AirSlash")
 			air_slash_disabled = true
-			state = State.ATTACK
+			self.state = State.ATTACK
 			_velocity.y = 0
 			Game.add_swing_xp(0.2)
 		
 		return
 	
 	if thrust_cooldown.is_stopped() and Input.is_action_just_pressed("thrust") and is_on_floor():
-		state = State.ATTACK
+		self.state = State.ATTACK
 		animation_player.play("Thrust")
 		Game.add_swing_xp(0.15)
 		thrust_cooldown.start()
@@ -233,7 +244,7 @@ func check_attack_input():
 		if !throw_cooldown.is_stopped():
 			return
 
-		state = State.ATTACK
+		self.state = State.ATTACK
 		animation_player.play("Throw")
 		if !is_on_floor():
 			_velocity.y = 0
@@ -268,8 +279,8 @@ func get_direction():
 	return Vector2(x, y)
 
 func get_new_animation():
-	if animation_player.current_animation == "Hit" and animation_player.is_playing():
-		return 'Hit'
+	if animation_player.is_playing() and (animation_player.current_animation == "Hit" or animation_player.current_animation == "FatalHit"):
+		return animation_player.current_animation
 
 	if !is_on_floor():
 		if _velocity.y >= 0:
@@ -299,8 +310,9 @@ func _check_interactions() -> void:
 		collider.activate()
 
 func mark_as_dead() -> void:
-	state = State.DEAD
-	visible = false
+	self.state = State.DEAD
+	
+#	visible = false
 #	queue_free()
 
 func set_camera_path(camera_path: NodePath) -> void:
@@ -340,11 +352,14 @@ func get_hit(damage, direction = 0):
 	
 	Game.show_damage(real_damage, global_position, true)
 	Game.take_damage(real_damage)
-	state = State.HIT
+	self.state = State.HIT
 	current_knockback = Vector2.ZERO
 	change_direction(direction)
 	
-	animation_player.play("Hit")
+	if Game.current_life == 0:
+		animation_player.play("FatalHit")
+	else:
+		animation_player.play("Hit")
 
 func _on_AnimationPlayer_animation_started(anim_name: String) -> void:
 	if anim_name == "Jump":
@@ -352,8 +367,11 @@ func _on_AnimationPlayer_animation_started(anim_name: String) -> void:
 		return
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
-	if (anim_name == "Hit"):
-		state = State.MOVE
+	if anim_name == "Hit":
+		self.state = State.MOVE
+		return
+	if anim_name == "FatalHit":
+		call_game_over()
 		return
 
 	if state == State.ATTACK:
@@ -380,7 +398,7 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 					animation_player.play("AirSlash2")
 					return
 		
-		state = State.MOVE
+		self.state = State.MOVE
 	
 func throw_sword():
 	back_detector.force_raycast_update()
@@ -425,10 +443,40 @@ func _on_GameHurtbox_body_entered(body):
 
 func notify_pit():
 	Game.take_damage(5)
+	
+	if Game.current_life == 0:
+		call_game_over()
+		return
+	
 	position = last_ground
+	current_knockback = Vector2.ZERO
 	change_direction(last_ground_direction)
 	hurtbox.start_invincibility(1)
-	call_deferred("show_damage", 5)
-	
+	call_deferred("show_pit_damage", 5)
+
+func show_pit_damage(damage):
+	show_damage(damage)
+
 func show_damage(damage):
 	Game.show_damage(damage, global_position, true)
+
+func die():
+	mark_as_dead()
+
+func call_game_over():
+	mark_as_dead()
+#	enable_gravity = false
+	hurtbox.disable()
+	set_collision_layer_bit(0, false)
+	emit_signal("game_over")
+
+func reset():
+	state = State.MOVE
+	current_knockback = Vector2.ZERO
+	change_direction(1)
+	throw_cooldown.stop()
+	thrust_cooldown.stop()
+	hurtbox.reset()
+	disable_all_hitboxes()
+	set_collision_layer_bit(0, true)
+	enable_gravity = true

@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/ui/map/PauseUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/ui/HUD.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/ui/map/MapUI.gd" type="Script" id=3]
+[ext_resource path="res://src/ui/map/GameOver.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fade In"
@@ -76,6 +77,13 @@ __meta__ = {
 [node name="HUD" parent="Control" instance=ExtResource( 2 )]
 
 [node name="PauseUI" parent="Control" instance=ExtResource( 1 )]
+visible = false
+margin_left = 224.0
+margin_top = 48.0
+margin_right = 432.0
+margin_bottom = 204.0
+
+[node name="GameOver" parent="Control" instance=ExtResource( 4 )]
 margin_left = 224.0
 margin_top = 48.0
 margin_right = 432.0

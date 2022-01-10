@@ -53,6 +53,7 @@ func load_initial_player() -> void:
 	if Game.player_x != null and Game.player_y != null:
 		game_player.position.x = Game.player_x
 		game_player.position.y = Game.player_y
+		game_player.change_direction(1)
 	game_player.set_camera_path("../../../Camera2D")
 
 	# warning-ignore:return_value_discarded
@@ -61,6 +62,10 @@ func load_initial_player() -> void:
 	game_player.connect("jump", self, "create_jump_effect")
 	# warning-ignore:return_value_discarded
 	game_player.connect("fall", self, "create_fall_effect")
+	# warning-ignore:return_value_discarded
+	game_player.connect("game_over", self, "call_game_over")
+	
+	game_player.reset()
 
 func load_player() -> void:
 	var player_scene = Game.player_scene
@@ -176,6 +181,9 @@ func play_sfx(sfx, volume = 0):
 
 func call_menu():
 	map_ui.call_menu()
+
+func call_game_over():
+	map_ui.call_game_over()
 
 func show_damage(damage, position, is_player = false):
 	var type = PlayerDamageIndicator if is_player else DamageIndicator

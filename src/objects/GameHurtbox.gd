@@ -17,11 +17,11 @@ func set_enemy(value):
 
 func start_invincibility(duration: float, ommit_events := false) -> void:
 	var total_duration = duration
-	if invincible and timer.time_left > 0:
-		total_duration += timer.time_left
-		ommit = ommit and ommit_events
-	else:
-		ommit = ommit_events
+#	if invincible and timer.time_left > 0:
+#		total_duration += timer.time_left
+#		ommit = ommit and ommit_events
+#	else:
+	ommit = ommit_events
 
 	invincible = true
 	collisionShape.set_deferred("disabled", true)
@@ -41,3 +41,10 @@ func disable() -> void:
 	invincible = true
 	disabled = true
 	collisionShape.set_deferred("disabled", true)
+
+func reset():
+	if !timer.is_stopped():
+		timer.stop()
+	disabled = false
+	invincible = false
+	collisionShape.disabled = false

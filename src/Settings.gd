@@ -43,7 +43,6 @@ func load_settings():
 		file.open(settings_file, File.READ)
 		
 		var data = file.get_var()
-		print(data)
 		if data is Dictionary:
 			apply_settings(data)
 		elif data is int:

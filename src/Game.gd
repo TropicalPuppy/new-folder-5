@@ -17,6 +17,7 @@ signal xp_changed
 signal level_up
 signal call_menu
 signal damage
+signal player_died
 signal data_change
 signal save_state
 
@@ -42,6 +43,7 @@ var swing_xp = 0
 var level = 1
 var has_sword = false
 var map_state_to_load = null setget set_nothing
+var last_checkpoint_state = null
 
 func set_max_life(value):
 	max_life = max(1, value)
@@ -51,8 +53,11 @@ func set_max_life(value):
 		set_life(new_life)
 
 func set_life(value):
+	var old_life = current_life
 	current_life = clamp(value, 0, max_life)
-	emit_signal("life_changed", value)
+	emit_signal("life_changed", current_life)
+	if current_life == 0 and old_life > 0:
+		emit_signal("player_died")
 
 func increase_money(increase):
 	money = money + increase
@@ -115,6 +120,7 @@ func collect_item(item_id):
 		'GoldenSkull':
 			set_max_life(max_life + 20)
 			set_life(max_life)
+			save_checkpoint()
 		'SilverCoin':
 			increase_money(1)
 		'GoldCoin':
@@ -198,6 +204,11 @@ func level_up():
 	walk_xp = 0
 	hit_xp = 0
 	swing_xp = 0
+	
+	set_max_life(max_life + 10)
+	
+	var life_restore = 10 + int(max_life / 100) * level * 5
+	set_life(current_life + life_restore)
 	update_required_xp()
 	emit_signal("level_up")
 	
@@ -224,9 +235,9 @@ func reset():
 	
 	update_required_xp()
 	emit_signal("data_change")
-	teleport_player("Island1", 23, 700)
+	go_to_start()
 
-func save_checkpoint():
+func save_state():
 	var state = SaveState.new()
 
 	state.max_life = max_life
@@ -242,11 +253,10 @@ func save_checkpoint():
 	state.has_sword = has_sword
 	
 	emit_signal("save_state", state)
-
 	
 	return state
 
-func restore_checkpoint(state):
+func restore_state(state):
 	max_life = state.max_life
 	current_life = state.current_life
 	money = state.money
@@ -262,7 +272,20 @@ func restore_checkpoint(state):
 	update_required_xp()
 	map_state_to_load = state.map
 	emit_signal("data_change")
-	teleport_player("Island1", 23, 700)
+	go_to_start()
+
+func save_checkpoint():
+	last_checkpoint_state = save_state()
+
+func restore_checkpoint():
+	if last_checkpoint_state != null:
+		restore_state(last_checkpoint_state)
+		return
+
+	reset()
 
 func report_map_loaded(_map_name):
 	map_state_to_load = null
+
+func go_to_start():
+	teleport_player("Island1", 23, 700)
