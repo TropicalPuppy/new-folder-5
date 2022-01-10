@@ -113,8 +113,8 @@ func _physics_process(delta: float) -> void:
 			dead_state(delta)
 
 func update_speed():
-	speed.x = 118 + Game.level * 2
-	speed.y = 248 + Game.level * 2
+	speed.x = 120 + Game.level
+	speed.y = 270 + Game.level * 3
 
 func update_last_ground():
 	ground_detector.force_raycast_update()
