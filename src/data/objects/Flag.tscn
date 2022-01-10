@@ -90,6 +90,7 @@ shape = SubResource( 5 )
 stream = ExtResource( 4 )
 
 [connection signal="player_entered" from="PlayerDetectionZone" to="." method="_on_PlayerDetectionZone_player_entered"]
+[connection signal="player_entered" from="PlayerDetectionZone2" to="." method="_on_PlayerDetectionZone2_player_entered"]
 [connection signal="player_exited" from="PlayerDetectionZone2" to="." method="_on_PlayerDetectionZone2_player_exited"]
 
 [editable path="PlayerDetectionZone"]

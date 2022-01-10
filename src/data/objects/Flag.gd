@@ -6,8 +6,6 @@ onready var player_detection2 = $PlayerDetectionZone2
 onready var save_position = $SavePosition
 onready var audio_player = $AudioStreamPlayer2D
 
-var player = null
-
 func fly():
 	animation_player.play("Fly")
 	
@@ -26,9 +24,21 @@ func _on_PlayerDetectionZone_player_entered():
 	if animation_player.is_playing():
 		return
 
-	player = player_detection.get_player()
 	fly()
 
 func _on_PlayerDetectionZone2_player_exited():
-	if player and animation_player.is_playing() and Game.current_life > 0:
+	if animation_player.is_playing() and Game.current_life > 0:
 		animation_player.play("Default")
+
+func _on_PlayerDetectionZone2_player_entered():
+	var pos = get_save_position()
+	if Game.last_checkpoint_state == null:
+		return
+	
+	var last_pos = Game.last_checkpoint_state.position
+	if last_pos == null:
+		return
+	
+	if last_pos.map == pos.map and last_pos.x == pos.x and last_pos.y == pos.y:
+		animation_player.play("Fly")
+	
