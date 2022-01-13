@@ -20,6 +20,9 @@ signal damage
 signal player_died
 signal data_change
 signal save_state
+signal code
+signal before_teleport
+signal after_teleport
 
 var player_scene = null setget set_player_scene
 #var player = null setget set_player
@@ -44,6 +47,15 @@ var level = 1
 var has_sword = false
 var map_state_to_load = null setget set_nothing
 var last_checkpoint_state = null
+
+# States controlled externally by the map scene
+var is_fading = false
+var is_running_code = false
+
+# is_transferring depends on the map load being reported back
+var is_transferring = false
+var fade_in_after_transfer = false
+var fade_duration = 0
 
 func set_max_life(value):
 	max_life = max(1, value)
@@ -70,9 +82,15 @@ func _exit_tree():
 	screen.queue_free()
 	scenes.queue_free()
 	maps.queue_free()
+	
+	if last_checkpoint_state != null and is_instance_valid(last_checkpoint_state):
+		last_checkpoint_state.queue_free()
 
 func initialize() -> void:
 	pass
+	
+func is_busy():
+	return is_transferring
 
 func change_scene(new_scene) -> void:
 	_initialized = true
@@ -103,15 +121,35 @@ func set_player_position(x, y) -> void:
 	emit_signal("update_player_position")
 
 func teleport_player(new_map_name, x, y) -> void:
+	if new_map_name == map_name:
+		set_player_position(x, y)
+		return
+	
 	map_name = new_map_name
 	player_x = x
 	player_y = y
 
 	if _initialized == false:
 		return
-		
+	
+	is_transferring = true
+	emit_signal("before_teleport")
+	yield(get_tree().create_timer(0.02), "timeout")
 	emit_signal("update_map")
-	emit_signal("update_player_position")
+	
+func fade_and_teleport(new_map_name, x, y, duration):
+	is_transferring = true
+	fade_in_after_transfer = true
+	fade_duration = duration
+	screen.fade_out(duration)
+	yield(get_tree().create_timer(duration), "timeout")
+	map_name = new_map_name
+	player_x = x
+	player_y = y
+	emit_signal("before_teleport")
+	yield(get_tree().create_timer(0.02), "timeout")
+	emit_signal("update_map")
+	
 
 func collect_item(item_id):
 	match item_id:
@@ -295,6 +333,18 @@ func restore_checkpoint():
 
 func report_map_loaded(_map_name):
 	map_state_to_load = null
+	emit_signal("update_player_position")
+	yield(get_tree().create_timer(0.02), "timeout")
+	if fade_in_after_transfer:
+		fade_in_after_transfer = false
+		screen.fade_in(fade_duration)
+		yield(get_tree().create_timer(fade_duration / 2), "timeout")
+		
+	call_deferred("finish_transfer")
+	
+func finish_transfer():
+	is_transferring = false
+	emit_signal("after_teleport")
 
 func get_start_position():
 	return {
@@ -307,3 +357,10 @@ func go_to_start():
 	var pos = get_start_position()
 	
 	teleport_player(pos.map, pos.x, pos.y)
+
+func run_code(commands, context):
+	if !commands:
+		return
+	
+	emit_signal("code", commands, context)
+

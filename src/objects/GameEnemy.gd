@@ -45,7 +45,10 @@ func _ready() -> void:
 	life_bar.set_life(life)
 	life_bar.visible = show_life_bar
 
-	_velocity.x = speed.x
+	if Game.is_busy():
+		_velocity.x = 0
+	else:
+		_velocity.x = speed.x
 	if initial_direction == Direction.RIGHT:
 		_direction = 1
 	

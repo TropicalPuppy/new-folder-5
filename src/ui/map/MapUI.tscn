@@ -9,7 +9,7 @@
 resource_name = "Fade In"
 step = 1.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("Panel:modulate")
+tracks/0/path = NodePath("FadeControl:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -25,7 +25,7 @@ tracks/0/keys = {
 resource_name = "Fade Out"
 step = 1.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("Panel:modulate")
+tracks/0/path = NodePath("FadeControl:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -40,7 +40,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=3]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Panel:modulate")
+tracks/0/path = NodePath("FadeControl:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -89,7 +89,7 @@ margin_top = 48.0
 margin_right = 432.0
 margin_bottom = 204.0
 
-[node name="Panel" type="Panel" parent="."]
+[node name="FadeControl" type="Panel" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -98,6 +98,8 @@ mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Tween" type="Tween" parent="FadeControl"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 "anims/Fade In" = SubResource( 1 )

@@ -9,6 +9,26 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Code",
+"language": "GDScript",
+"path": "res://src/system/Code.gd"
+}, {
+"base": "Node",
+"class": "Command",
+"language": "GDScript",
+"path": "res://src/system/Command.gd"
+}, {
+"base": "Node",
+"class": "Constants",
+"language": "GDScript",
+"path": "res://src/system/Constants.gd"
+}, {
+"base": "Command",
+"class": "CustomCommand",
+"language": "GDScript",
+"path": "res://src/system/commands/CustomCommand.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "GameBullet",
 "language": "GDScript",
@@ -57,7 +77,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "GameScreen",
 "language": "GDScript",
-"path": "res://src/objects/GameScreen.gd"
+"path": "res://src/system/GameScreen.gd"
 }, {
 "base": "Node",
 "class": "MapManager",
@@ -110,6 +130,10 @@ _global_script_classes=[ {
 "path": "res://src/data/enemies/TotemHeadTemplate.gd"
 } ]
 _global_script_class_icons={
+"Code": "",
+"Command": "",
+"Constants": "",
+"CustomCommand": "",
 "GameBullet": "",
 "GameCharacter": "",
 "GameEnemy": "",
@@ -142,6 +166,10 @@ config/icon="res://icon.png"
 
 Game="*res://src/Game.gd"
 Settings="*res://src/Settings.gd"
+
+[debug]
+
+settings/stdout/verbose_stdout=true
 
 [display]
 
@@ -256,6 +284,7 @@ debug={
 2d_physics/layer_11="Debris"
 2d_physics/layer_12="Loot"
 2d_physics/layer_13="Pit"
+2d_physics/layer_14="PlayerDetection"
 
 [physics]
 

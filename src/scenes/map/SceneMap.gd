@@ -9,6 +9,7 @@ onready var audio = $AudioStreamPlayer
 onready var audio2db = $AlternativeAudioStreamPlayer2D
 onready var audiob = $AlternativeAudioStreamPlayer
 onready var map_ui = $MapUI
+onready var code = $Code
 
 const StuckSwordScene = preload("res://src/data/platforms/StuckSword.tscn")
 const RunEffectScene = preload("res://src/data/sprites/RunEffect.tscn")
@@ -22,7 +23,10 @@ var is_ready = false
 var auto_initialize = false
 
 func _physics_process(_delta):
-	if Input.is_action_just_pressed("ui_cancel"):
+	Game.is_fading = is_fading()
+	Game.is_running_code = code.is_running()
+	
+	if !Game.is_busy() and Input.is_action_just_pressed("ui_cancel"):
 		call_menu()
 
 func _ready() -> void:
@@ -44,6 +48,13 @@ func _ready() -> void:
 	Game.connect("call_menu", self, "call_menu")
 	# warning-ignore:return_value_discarded
 	Game.connect("damage", self, "show_damage")
+	# warning-ignore:return_value_discarded
+	Game.connect("code", self, "run_code")
+
+	# warning-ignore:return_value_discarded
+	Game.screen.connect("trigger_fade_in", self, "fade_in")
+	# warning-ignore:return_value_discarded
+	Game.screen.connect("trigger_fade_out", self, "fade_out")
 	
 func load_initial_player() -> void:
 	if y_sort.get_child_count() == 0:
@@ -193,3 +204,16 @@ func show_damage(damage, position, is_player = false):
 	indicator.set_as_toplevel(true)
 	indicator.set_value(int(damage))
 	add_child(indicator)
+
+func fade_in(duration = 1.0):
+	map_ui.fade_in(duration)
+
+func fade_out(duration = 1.0):
+	map_ui.fade_out(duration)
+
+func is_fading():
+	return map_ui.is_fading()
+
+func run_code(commands, context):
+	code.setup(commands, context if context != null else self)
+	code.start()

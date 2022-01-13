@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/ui/map/MapUI.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/system/Code.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/objects/GamePlayer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/scenes/map/SceneMap.gd" type="Script" id=4]
 [ext_resource path="res://src/data/maps/IslandBackground.tscn" type="PackedScene" id=5]
@@ -46,5 +47,7 @@ bus = "SFX"
 
 [node name="AlternativeAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = "SFX"
+
+[node name="Code" parent="." instance=ExtResource( 2 )]
 
 [connection signal="tree_entered" from="." to="." method="_on_SceneMap_tree_entered"]

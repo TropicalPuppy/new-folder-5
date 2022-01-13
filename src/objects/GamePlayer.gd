@@ -54,6 +54,10 @@ func _ready() -> void:
 	Game.connect("update_player_position", self, "update_player_position")
 	# warning-ignore:return_value_discarded
 	Game.connect("player_died", self, "die")
+	# warning-ignore:return_value_discarded
+	Game.connect("before_teleport", self, "before_teleport")
+	# warning-ignore:return_value_discarded
+	Game.connect("after_teleport", self, "after_teleport")
 
 func set_state(value):
 	if state == State.DEAD:
@@ -96,6 +100,7 @@ func _physics_process(delta: float) -> void:
 	update_sprite()
 	update_invincibility_passability()
 	update_speed()
+	update_player_detection_layer()
 	
 	match state:
 		State.MOVE:
@@ -161,7 +166,8 @@ func move_state(_delta: float) -> void:
 	if was_on_air and is_on_floor():
 		fall()
 	was_on_air = !is_on_floor()
-	set_collision_mask_bit(3, !Input.is_action_pressed("ui_down"))
+	if !Game.is_busy():
+		set_collision_mask_bit(3, !Input.is_action_pressed("ui_down"))
 	
 	var direction = get_direction()
 	var is_jump_interrupted = Input.is_action_just_released("jump")
@@ -192,6 +198,9 @@ func attack_state(_delta: float) -> void:
 		
 	if old_anim == "Throw":
 		return
+		
+	if Game.is_busy():
+		return
 	
 	if Input.is_action_just_pressed("slash"):
 		if old_anim == "Thrust" or old_anim == "Slash" or old_anim == "AirSlash" or old_anim == "Slash2":
@@ -212,6 +221,9 @@ func attack_state(_delta: float) -> void:
 			return
 
 func check_attack_input():
+	if Game.is_busy():
+		return
+
 	if !show_sword:
 		return
 		
@@ -254,6 +266,9 @@ func check_attack_input():
 		return
 
 func can_jump_now():
+	if Game.is_busy():
+		return false
+
 	if is_on_floor():
 		return true
 		
@@ -266,8 +281,11 @@ func can_jump_now():
 	return false
 
 func get_direction():
-	var x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	var x = 0
 	var y = 0
+	
+	if !Game.is_busy():
+		x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	
 	if can_jump_now() and Input.is_action_just_pressed("jump"):
 		y = -1
@@ -292,29 +310,9 @@ func get_new_animation():
 	if abs(_velocity.x) > 0.1:
 		return "Walk"
 	return "Idle"
-	
-func check_interactions() -> void:
-	if !Input.is_action_just_pressed("interact"):
-		return
-		
-	interactionRay.enabled = true
-	interactionRay.force_raycast_update()
-	_check_interactions()
-	interactionRay.enabled = false
-
-func _check_interactions() -> void:
-	if !interactionRay.is_colliding():
-		return
-
-	var collider = interactionRay.get_collider()
-	if collider != null and collider is MapNode:
-		collider.activate()
 
 func mark_as_dead() -> void:
 	self.state = State.DEAD
-	
-#	visible = false
-#	queue_free()
 
 func set_camera_path(camera_path: NodePath) -> void:
 	$RemoteTransform2D.remote_path = camera_path
@@ -483,3 +481,12 @@ func reset():
 	blink_animation.play("Stop")
 	
 	enable_gravity = true
+
+func update_player_detection_layer():
+	set_collision_layer_bit(13, !Game.is_transferring)
+
+func before_teleport():
+	update_player_detection_layer()
+
+func after_teleport():
+	update_player_detection_layer()
