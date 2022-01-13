@@ -172,7 +172,7 @@ texture = ExtResource( 2 )
 flip_h = true
 hframes = 10
 vframes = 4
-frame = 30
+frame = 4
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "Idle"
