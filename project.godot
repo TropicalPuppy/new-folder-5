@@ -167,10 +167,6 @@ config/icon="res://icon.png"
 Game="*res://src/Game.gd"
 Settings="*res://src/Settings.gd"
 
-[debug]
-
-settings/stdout/verbose_stdout=true
-
 [display]
 
 window/size/width=640
