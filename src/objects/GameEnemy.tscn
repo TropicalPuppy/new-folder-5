@@ -28,6 +28,7 @@ collision_layer = 64
 bus = "Enemies"
 
 [node name="LifeBar" parent="." instance=ExtResource( 4 )]
+visible = false
 margin_left = -15.5
 margin_right = -15.5
 

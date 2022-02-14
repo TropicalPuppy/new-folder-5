@@ -99,6 +99,7 @@ item_id = "GoldenSkull"
 collect_sfx = "res://assets/sfx/bottle.wav"
 
 [node name="Sprite" parent="." index="0"]
+position = Vector2( -1, -5 )
 texture = ExtResource( 2 )
 hframes = 8
 vframes = 2

@@ -194,14 +194,17 @@ func attack_state(_delta: float) -> void:
 		return
 		
 	apply_velocity(Vector2.ZERO, true)
+	maybe_continue_attack()
+
+func maybe_continue_attack():
 	var old_anim = animation_player.current_animation
-		
+
 	if old_anim == "Throw":
 		return
-		
+
 	if Game.is_busy():
 		return
-	
+
 	if Input.is_action_just_pressed("slash"):
 		if old_anim == "Thrust" or old_anim == "Slash" or old_anim == "AirSlash" or old_anim == "Slash2":
 			continue_combo = true
@@ -219,6 +222,7 @@ func attack_state(_delta: float) -> void:
 			Game.add_swing_xp(0.15)
 			thrust_cooldown.start()
 			return
+	
 
 func check_attack_input():
 	if Game.is_busy():
@@ -243,9 +247,9 @@ func check_attack_input():
 			self.state = State.ATTACK
 			_velocity.y = 0
 			Game.add_swing_xp(0.2)
-		
+
 		return
-	
+
 	if thrust_cooldown.is_stopped() and Input.is_action_just_pressed("thrust") and is_on_floor():
 		self.state = State.ATTACK
 		animation_player.play("Thrust")

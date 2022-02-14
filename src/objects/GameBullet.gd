@@ -112,6 +112,10 @@ func _physics_process(delta):
 			explode()
 			collision.collider.destroy()
 		return
+
+	if collision.collider.name == "GamePlayer":
+		if collision.position.y < (global_position.y - 7):
+			return
 	
 	explode()
 	var hit_direction = 1 if collision.position > collision.collider.global_position else -1
