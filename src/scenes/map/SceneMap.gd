@@ -26,7 +26,7 @@ func _physics_process(_delta):
 	Game.is_fading = is_fading()
 	Game.is_running_code = code.is_running()
 	
-	if !Game.is_busy() and Input.is_action_just_pressed("ui_cancel"):
+	if !Game.is_busy() and Input.is_action_just_pressed("pause"):
 		call_menu()
 
 func _ready() -> void:
